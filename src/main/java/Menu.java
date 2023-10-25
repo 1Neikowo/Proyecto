@@ -1,14 +1,17 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
     private AIV gestor = new AIV();
+    private boolean valido;
     private Scanner teclado = new Scanner(System.in);
     private Login login = new Login();
     private Admin admin;
 
     public Menu(Admin admin) {
         this.admin = admin;
+        valido= false;
     }
 
     public void mostrarMenu() {
@@ -18,7 +21,7 @@ public class Menu {
         while (true) {
             mostrarMenuPrincipal();
 
-            int opcion = teclado.nextInt();
+            int opcion = validarInt();
             procesarOpcion(opcion);
 
         }
@@ -35,6 +38,16 @@ public class Menu {
         }
 
     }
+    public int validarInt(){
+        Scanner teclado = new Scanner(System.in);
+        try {
+            return teclado.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Error. Ingrese un valor válido para la variable.");
+            return validarInt();
+        }
+
+    }
     public void mostrarMenuPrincipal(){
         System.out.println("\nGestor de Plantas AIV");
         System.out.println("1. Agregar Planta");
@@ -46,8 +59,11 @@ public class Menu {
         System.out.print("Elija una opción: ");
     }
     public void procesarOpcion(int opcion){
+
+
         switch (opcion) {
             case 1:
+
                 System.out.print("Nombre de la planta: ");
                 String nombre = teclado.next();
                 System.out.print("Clasificación: ");
@@ -57,11 +73,14 @@ public class Menu {
                 System.out.print("Ambiente: ");
                 String ambiente = teclado.next();
                 System.out.print("Precio: ");
-                int precio = teclado.nextInt();
+                int precio = validarInt();
+
+
 
                 Planta nuevaPlanta = new Planta(nombre, clasificacion, tamano, ambiente, precio);
                 gestor.agregarPlanta(nuevaPlanta);
                 System.out.println("Planta agregada con éxito.");
+
                 break;
 
             case 2:
@@ -109,7 +128,8 @@ public class Menu {
                     System.out.print("Nuevo ambiente: ");
                     String nuevoAmbiente = teclado.next();
                     System.out.print("Nuevo precio: ");
-                    int nuevoPrecio = teclado.nextInt();
+                    int nuevoPrecio = validarInt();
+
 
                     Planta nuevaPlantaActualizada = new Planta(nuevoNombre, nuevaClasificacion, nuevoTamano, nuevoAmbiente, nuevoPrecio);
                     gestor.actualizarPlanta(nombreActualizar, nuevaPlantaActualizada);
