@@ -3,40 +3,18 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private AIV gestor = new AIV();
-    private boolean valido;
-    private Scanner teclado = new Scanner(System.in);
-    private Login login = new Login();
-    private Admin admin;
-
-    public Menu(Admin admin) {
-        this.admin = admin;
-        valido= false;
-    }
-
     public void mostrarMenu() {
 
-        iniciarSesion();
+        Login login = new Login();
+        Admin admin = new Admin("admin","admin");
+        login.iniciarSesion(admin);
 
         while (true) {
             mostrarMenuPrincipal();
-
             int opcion = validarInt();
             procesarOpcion(opcion);
 
         }
-    }
-    private void iniciarSesion() {
-        boolean autenticado = false;
-        Login login = new Login();
-        while (!autenticado) {
-            autenticado = login.iniciarSesion(admin);
-
-            if (!autenticado) {
-                System.out.println("Inicio de sesión incorrecto. Intente de nuevo.");
-            }
-        }
-
     }
     public int validarInt(){
         Scanner teclado = new Scanner(System.in);
@@ -59,11 +37,10 @@ public class Menu {
         System.out.print("Elija una opción: ");
     }
     public void procesarOpcion(int opcion){
-
-
+        AIV gestor = new AIV();
+        Scanner teclado = new Scanner(System.in);
         switch (opcion) {
             case 1:
-
                 System.out.print("Nombre de la planta: ");
                 String nombre = teclado.next();
                 System.out.print("Clasificación: ");
@@ -80,7 +57,6 @@ public class Menu {
                 Planta nuevaPlanta = new Planta(nombre, clasificacion, tamano, ambiente, precio);
                 gestor.agregarPlanta(nuevaPlanta);
                 System.out.println("Planta agregada con éxito.");
-
                 break;
 
             case 2:
