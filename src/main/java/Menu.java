@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 public class Menu {
+    private AIV gestor = new AIV();
     public void mostrarMenu() {
 
         Login login = new Login();
         Admin admin = new Admin("admin","admin");
+
         login.iniciarSesion(admin);
 
         while (true) {
@@ -37,7 +38,6 @@ public class Menu {
         System.out.print("Elija una opción: ");
     }
     public void procesarOpcion(int opcion){
-        AIV gestor = new AIV();
         Scanner teclado = new Scanner(System.in);
         switch (opcion) {
             case 1:
