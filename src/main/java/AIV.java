@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
 public class AIV {
+    private GestorArchivo gestorArchivo;
     private ArrayList<Planta> listaDePlantas;
 
     public AIV(){
         listaDePlantas = new ArrayList<>();
+        gestorArchivo = new GestorArchivo();
     }
     public void agregarPlanta(Planta planta){
-        listaDePlantas.add(planta);
+        gestorArchivo.agregarPlantaArchivo(planta);
     }
     public boolean eliminarPlanta(String nombre){
         return listaDePlantas.removeIf(planta -> planta.getNombre().equalsIgnoreCase(nombre));
@@ -21,6 +23,7 @@ public class AIV {
         return null;
     }
     public ArrayList<Planta> obtenerPlantas(){
+        listaDePlantas = gestorArchivo.obtenerPlantasArchivo();
         return listaDePlantas;
     }
     public void actualizarPlanta(String nombre, Planta nuevaPlanta){

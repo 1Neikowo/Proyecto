@@ -41,7 +41,7 @@ public class Planta {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre + "\nClasificación: " + clasificacion + "\nTamaño: " + tamano + "\nAmbiente: " + ambiente + "\nPrecio: " + precio + "\nID: " + id;
+        return  nombre +" "+ clasificacion +" "+ tamano +" "+ ambiente +" "+ precio;
 
     }
 }
