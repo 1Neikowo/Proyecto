@@ -12,8 +12,11 @@ public class GestorArchivo {
     public GestorArchivo() {
         this.nombreArchivo = "plantas.txt";
     }
-
-
+    public boolean existeArchivo() {
+        //Se verifica si existe el archivo con el nombre "nombreArchivo
+        File file = new File(nombreArchivo);
+        return file.exists();
+    }
     public void agregarPlantaArchivo(Planta planta) {
         boolean existeArchivo = existeArchivo();
         if (existeArchivo) {
@@ -33,20 +36,14 @@ public class GestorArchivo {
                 System.out.println("No se halló un archivo, se creara uno nuevo");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
                 writer.write(planta.toString());
-                System.out.println("Planta añadida con exito");
                 writer.newLine();
+                System.out.println("Planta añadida con exito");
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
-    }
-
-    public boolean existeArchivo() {
-        //Se verifica si existe el archivo con el nombre "nombreArchivo
-        File file = new File(nombreArchivo);
-        return file.exists();
     }
     public ArrayList<Planta> obtenerPlantasArchivo(){
         //Se obitiene el arreglo de plantas que se almacenó en el arhivo de texto
