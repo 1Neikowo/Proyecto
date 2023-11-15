@@ -9,7 +9,7 @@ public class AIV {
         gestorArchivo = new GestorArchivo();
     }
     public void agregarPlanta(Planta planta){
-        gestorArchivo.agregarPlantaArchivo(planta);
+        gestorArchivo.agregarNuevaPlantaArchivo(planta);
     }
     public boolean eliminarPlanta(String nombre){
         return listaDePlantas.removeIf(planta -> planta.getNombre().equalsIgnoreCase(nombre));

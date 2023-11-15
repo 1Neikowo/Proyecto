@@ -51,10 +51,11 @@ public class Menu {
                 String ambiente = teclado.next();
                 System.out.print("Precio: ");
                 int precio = validarInt();
+                int cantidad=0;
 
 
 
-                Planta nuevaPlanta = new Planta(nombre, clasificacion, tamano, ambiente, precio);
+                Planta nuevaPlanta = new Planta(nombre, clasificacion, tamano, ambiente, precio,cantidad);
                 gestor.agregarPlanta(nuevaPlanta);
                 System.out.println("Planta agregada con éxito.");
                 break;
@@ -105,9 +106,10 @@ public class Menu {
                     String nuevoAmbiente = teclado.next();
                     System.out.print("Nuevo precio: ");
                     int nuevoPrecio = validarInt();
+                    int nuevacantidad=0;
 
 
-                    Planta nuevaPlantaActualizada = new Planta(nuevoNombre, nuevaClasificacion, nuevoTamano, nuevoAmbiente, nuevoPrecio);
+                    Planta nuevaPlantaActualizada = new Planta(nuevoNombre, nuevaClasificacion, nuevoTamano, nuevoAmbiente, nuevoPrecio,nuevacantidad);
                     gestor.actualizarPlanta(nombreActualizar, nuevaPlantaActualizada);
                     System.out.println("Planta actualizada con éxito.");
                 } else {

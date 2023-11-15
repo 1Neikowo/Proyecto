@@ -6,14 +6,17 @@ public class Planta {
     private String tamano;
     private String ambiente;
     private int precio;
+    private int cantidad;
 
-    public Planta(String nombre, String clasificacion, String tamano, String ambiente, int precio) {
+    public Planta(String nombre, String clasificacion, String tamano, String ambiente, int precio,int cantidad) {
         this.id = ++contadorPlanta;
         this.nombre = nombre;
         this.clasificacion = clasificacion;
         this.tamano = tamano;
         this.ambiente = ambiente;
         this.precio = precio;
+        this.cantidad=cantidad;
+
     }
     public int getId() {
         return id;
@@ -37,11 +40,17 @@ public class Planta {
     public double getPrecio() {
         return precio;
     }
+    public int getCantidad() {
+        return cantidad;
+    }
+    public void setCantidad(int cantidad) {
+        this.cantidad=cantidad;
+    }
 
 
     @Override
     public String toString() {
-        return  nombre +" "+ clasificacion +" "+ tamano +" "+ ambiente +" "+ precio;
+        return  id+","+nombre +","+ clasificacion +","+ tamano +","+ ambiente +","+ precio+","+cantidad;
 
     }
 }
