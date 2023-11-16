@@ -16,8 +16,17 @@ public class Planta {
         this.ambiente = ambiente;
         this.precio = precio;
         this.cantidad=cantidad;
-
     }
+    public Planta(int id, String nombre, String clasificacion, String tamano, String ambiente, int precio,int cantidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.clasificacion = clasificacion;
+        this.tamano = tamano;
+        this.ambiente = ambiente;
+        this.precio = precio;
+        this.cantidad=cantidad;
+    }
+
     public int getId() {
         return id;
     }
