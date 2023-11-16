@@ -14,37 +14,75 @@ public class GestorArchivo {
     public GestorArchivo() {
         this.nombreArchivo = "plantas.txt";
     }
+
     public boolean existeArchivo() {
         //Se verifica si existe el archivo con el nombre "nombreArchivo"
         File file = new File(nombreArchivo);
         return file.exists();
     }
-    public void agregarNuevaPlantaArchivo(Planta planta) {
+
+    public void agregarPlantaArchivo(Planta planta) throws IOException {
         boolean existeArchivo = existeArchivo();
         if (existeArchivo) {
-            try {
-            //Agregar planta a un archivo existente
-                BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, true));
-                writer.write(planta.toString());
-                System.out.println("Planta añadida con exito");
-                writer.newLine();
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            agregarPlantaNuevaArchivoExiste(planta);
         } else {
-            try {
-                //Crear un archivo y agregar planta
-                System.out.println("No se halló un archivo, se creara uno nuevo");
-                BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
-                writer.write(planta.toString());
-                writer.newLine();
-                System.out.println("Planta añadida con exito");
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            agregarPlantaNuevaArchivoNoExiste(planta);
+        }
+
+
+        }
+
+    public void quitarPlantaArchivo(String nombre, int id, int cantidad){
+        try {
+            File archivo = new File(nombreArchivo);
+            List<String> lineas = new ArrayList<>();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    String[] partes = linea.split(",");
+                    if (partes[1].equals(nombre)&& Integer.parseInt(partes[0])==id) {
+                        int cantidadnueva = Integer.parseInt(partes[6]) - cantidad;
+                        lineas.add(Integer.parseInt(partes[0]) + "," +partes[1]+","+partes[2]+ ","+partes[3] +","+partes[4]+ ","+partes[5] +","+cantidadnueva);
+                    } else {
+                        lineas.add(linea);
+                    }
+                }
             }
 
+            try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
+                for (String linea : lineas) {
+                    pw.println(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarPlantaNuevaArchivoExiste(Planta planta) throws IOException{
+        try {
+            //Agregar planta a un archivo existente
+            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, true));
+            writer.write(planta.toString());
+            System.out.println("Planta añadida con exito");
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void agregarPlantaNuevaArchivoNoExiste(Planta planta) throws IOException{
+        try {
+            //Crear un archivo y agregar planta
+            System.out.println("No se halló un archivo, se creara uno nuevo");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
+            writer.write(planta.toString());
+            writer.newLine();
+            System.out.println("Planta añadida con exito");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -58,7 +96,7 @@ public class GestorArchivo {
                 String linea = reader.readLine();
                 while (linea != null){
                     String[] datos = linea.split(",");
-                    Planta planta = new Planta(datos[1],datos[2],datos[3],datos[4],Integer.parseInt(datos[5]),Integer.parseInt(datos[6]));
+                    Planta planta = new Planta(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],Integer.parseInt(datos[5]),Integer.parseInt(datos[6]));
                     plantas.add(planta);
                     linea = reader.readLine();
                 }
@@ -68,6 +106,18 @@ public class GestorArchivo {
             }
         }
         return plantas;
+    }
+
+    public Planta buscarPlanta(String name){
+        ArrayList<Planta> plantas = obtenerPlantasArchivo();
+        for(int i = 0; i < plantas.size(); i++){
+            if(plantas.get(i).getNombre().equalsIgnoreCase(name)){
+                return plantas.get(i);
+            }
+        }
+        return null;
+
+
     }
     /*public void eliminarPlanta(String nombreAEliminar) {
         List<String> lineas = new ArrayList<>();
