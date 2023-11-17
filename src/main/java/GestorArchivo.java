@@ -59,13 +59,20 @@ public class GestorArchivo {
             e.printStackTrace();
         }
     }
-
+    public boolean existePlanta(Planta plant){
+        ArrayList<Planta> plantas = obtenerPlantasArchivo();
+        for(int i = 0; i < plantas.size(); i++){
+            if(plantas.get(i)==plant){
+                return true;
+            }
+        }
+        return false;
+    }
     public void agregarPlantaNuevaArchivoExiste(Planta planta) throws IOException{
         try {
             //Agregar planta a un archivo existente
             BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, true));
             writer.write(planta.toString());
-            System.out.println("Planta añadida con exito");
             writer.newLine();
             writer.close();
         } catch (IOException e) {

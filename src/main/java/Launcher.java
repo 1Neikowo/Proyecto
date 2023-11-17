@@ -6,7 +6,7 @@ public class Launcher {
         GestorArchivo gestor = new GestorArchivo();
 
 
-        Planta planta = new Planta("rosa", "rojo", "verde", "perenne", 12,1);
+        /*Planta planta = new Planta("rosa", "", "verde", "perenne", 12,1);
         Planta plant = new Planta("margarita", "blanco", "verde", "perenne", 14,2);
         Planta plant2= new Planta("camile", "blanco", "verde", "perenne", 14,3);
         gestor.agregarPlantaArchivo(planta);
@@ -14,8 +14,9 @@ public class Launcher {
         gestor.agregarPlantaExistenteArchivo("margarita",2,70);
         ArrayList<Planta> plantas = gestor.obtenerPlantasArchivo();
         for (int i = 0; i < plantas.size(); i++) {
-            System.out.println(plantas.get(i));
+            System.out.println(plantas.get(i));*/
+        Menu menu = new Menu();
+        menu.mostrarMenu();
 
         }
     }
-}

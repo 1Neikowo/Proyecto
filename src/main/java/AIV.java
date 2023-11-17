@@ -30,7 +30,9 @@ public class AIV {
         return null;
     }
 
-
+    public boolean existeplanta(Planta plant){
+        return gestorArchivo.existePlanta(plant);
+    }
     public ArrayList<Planta> obtenerPlantas(){
         listaDePlantas = gestorArchivo.obtenerPlantasArchivo();
         return listaDePlantas;

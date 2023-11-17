@@ -25,13 +25,14 @@ public enum Tamanos{
     }
 
     public String clasificacion(){
-        int n=validarInt();
+
         System.out.println("1. Hierba");
         System.out.println("2. Arbusto");
         System.out.println("3. Arbol");
         System.out.println("4. Enredadera");
         System.out.println("5. Suculenta");
         System.out.println("6. Bulbosa");
+        int n=validarInt();
         switch (n){
             case 1:
                 return Clasificaciones.Hierba.toString();
@@ -52,22 +53,26 @@ public enum Tamanos{
 
     }
     public String ambiente(){
-        int n=validarInt();
+
         System.out.println("1. Interior");
         System.out.println("2. Exterior");
+        int n=validarInt();
         switch(n) {
             case 1:
                 return Ambientes.Interior.toString();
             case 2:
                 return Ambientes.Exterior.toString();
+            default:
+                System.out.println("Opción no válida. Intente de nuevo.");
+                return ambiente();
         }
-        return null;
     }
     public String tamano(){
-        int n=validarInt();
+
         System.out.println("1. Pequeño");
         System.out.println("2. Mediano");
         System.out.println("3. Grande");
+        int n=validarInt();
 
         switch(n) {
             case 1:
@@ -81,7 +86,7 @@ public enum Tamanos{
     }
 
 
-    public void mostrarMenu() {
+    public void mostrarMenu() throws IOException {
 
         Login login = new Login();
         Admin admin = new Admin("admin","admin");
@@ -116,21 +121,26 @@ public enum Tamanos{
         System.out.print("Elija una opción: ");
     }
     public void gestionAgregarPlantaNueva() throws IOException {
-        System.out.print("Nombre de la planta: ");
+        System.out.println("Nombre de la planta: ");
         String nombre = teclado.next();
-        System.out.print("Seleccione la clasificación: ");
+        System.out.println("Seleccione la clasificación: ");
         String clasificacion = clasificacion();
-        System.out.print("Tamaño: ");
+        System.out.println("Tamaño: ");
         String tamano = tamano();
-        System.out.print("Ambiente: ");
+        System.out.println("Ambiente: ");
         String ambiente = ambiente();
-        System.out.print("Precio: ");
+        System.out.println("Precio: ");
         int precio = validarInt();
-        System.out.print("Ingrese la cantidad inicial de la planta: ");
+        System.out.println("Ingrese la cantidad inicial de la planta: ");
         int cantidad=validarInt();
         Planta nuevaPlanta= new Planta(nombre, clasificacion, tamano, ambiente, precio, cantidad);
-        gestor.agregarPlantaNueva(nuevaPlanta);
-        System.out.println("Planta agregada con éxito.");
+        if(gestor.existeplanta(nuevaPlanta)){
+        System.out.println("La planta ya se ha registrado, intente denuevo");
+        gestionAgregarPlantaNueva();
+        }else {
+            gestor.agregarPlantaNueva(nuevaPlanta);
+            System.out.println("La planta ha sido registrada con éxito");
+        }
     }
     public void gestionAgregarPlantaExistente() throws IOException {
         System.out.print("Nombre de la planta: ");
@@ -143,12 +153,14 @@ public enum Tamanos{
         System.out.println("Stock agregado con éxito.");
 
     }
-    public int validarCantidadEliminar(){
+    public int validarCantidadEliminar(Planta plant){
+        System.out.println("Ingrese la cantidad a eliminar: ");
         int cantidad=validarInt();
-
-        if(cantidad<0){
-            System.out.println("Ingrese una cantidad válida");
-            return validarCantidadEliminar();
+        if(cantidad<plant.getCantidad() && cantidad>0){
+            return cantidad;
+        }else{
+            System.out.println("Cantidad no válida. Intente de nuevo.");
+            return validarCantidadEliminar(plant);
         }
     }
 
@@ -173,9 +185,10 @@ public enum Tamanos{
                 String nombreEliminar = teclado.next();
                 System.out.println("Ingrese el id de la planta: ");
                 int id = validarInt();
-                System.out.println("Ingrese la cantidad a eliminar: ");
-                int cantidad = validarInt();
+                int cantidad = validarCantidadEliminar(gestor.buscarPlanta(nombreEliminar,id));
+                Planta plantaeliminar=gestor.buscarPlanta(nombreEliminar,id);
                 gestor.eliminarPlanta(nombreEliminar,id,cantidad);
+                System.out.println("Planta eliminada con éxito.");
                 break;
 
 
@@ -211,7 +224,7 @@ public enum Tamanos{
 
 
 
-
+/*
             case 3:
                 System.out.print("Nombre de la planta a buscar: ");
                 String nombreBuscar = teclado.next();
@@ -262,7 +275,7 @@ public enum Tamanos{
             case 6:
                 System.out.println("Hasta luego.");
                 System.exit(0);
-
+*/
             default:
                 System.out.println("Opción no válida. Intente de nuevo.");
                 break;
