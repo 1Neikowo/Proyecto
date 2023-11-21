@@ -32,6 +32,9 @@ public class GestorArchivo {
 
         }
 
+
+    // dividir método en otros métodos
+
     public void quitarPlantaArchivo(String nombre, int id, int cantidad){
         try {
             File archivo = new File(nombreArchivo);
@@ -59,6 +62,10 @@ public class GestorArchivo {
             e.printStackTrace();
         }
     }
+
+
+
+
     public boolean existePlanta(Planta plant){
         ArrayList<Planta> plantas = obtenerPlantasArchivo();
         for(int i = 0; i < plantas.size(); i++){
@@ -151,6 +158,10 @@ public class GestorArchivo {
             System.out.println("Error al eliminar planta: " + e.getMessage());
         }
     }*/
+
+
+    // Dividir método anterior en otros métodos
+
     public void agregarPlantaExistenteArchivo(String nombre, int id, int cantidad){
         try {
             File archivo = new File(nombreArchivo);
@@ -178,6 +189,9 @@ public class GestorArchivo {
             e.printStackTrace();
         }
     }
+
+
+
 }
 
 
