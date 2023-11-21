@@ -118,7 +118,7 @@ public enum Tamanos{
         }
     }
     /*Sub menu encargado de agregar plantas nuevas*/
-    public void gestionAgregarPlantaNueva() throws IOException {
+    public void AgregarPlantaNueva() throws IOException {
         System.out.println("Nombre de la planta: ");
         String nombre = teclado.next();
         System.out.println("Seleccione la clasificación: ");
@@ -134,39 +134,47 @@ public enum Tamanos{
         Planta nuevaPlanta= new Planta(nombre, clasificacion, tamano, ambiente, precio, cantidad);
         if(aiv.existeplanta(nuevaPlanta)){
         System.out.println("La planta ya se ha registrado, intente denuevo");
-        gestionAgregarPlantaNueva();
+        AgregarPlantaNueva();
         }else {
             aiv.agregarPlantaNueva(nuevaPlanta);
             System.out.println("La planta ha sido registrada con éxito");
         }
     }
     /*Sub menu encargado de agregar existentes*/
-    public void gestionAgregarPlantaExistente() throws IOException {
+    public void AgregarPlantaExistente() throws IOException {
         System.out.print("Nombre de la planta: ");
         String nombre = teclado.next();
         System.out.print("Ingrese el id de la planta: ");
         int id = validarInt();
         System.out.print("Ingrese la cantidad de plantas a agregar: ");
         int cantidad = validarInt();
-        aiv.agregarPlantaExistente(nombre, id, cantidad);
-        System.out.println("Stock agregado con éxito.");
+        if(aiv.ExisteArchivo()){
+            aiv.agregarPlantaExistente(nombre, id, cantidad);
+            System.out.println("Stock agregado con éxito.");
+        }else{
+
+        }
+
 
     }
     /*Método que da inicio al programa*/
     public void mostrarMenu() throws IOException {
 
         Login login = new Login();
-        Admin admin = new Admin("admin","admin");
+        Admin admin = new Admin("admin", "admin");
 
         login.iniciarSesion(admin);
-
-        while (true) {
-            mostrarMenuPrincipal();
-            int opcion = validarInt();
-            procesarOpcion(opcion);
-
+        try {
+            while (true) {
+                mostrarMenuPrincipal();
+                int opcion = validarInt();
+                procesarOpcion(opcion);
+            }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
-    }
+
     /*Método que muestra el menu principal */
     public void mostrarMenuPrincipal(){
         System.out.println("\nGestor de Plantas AIV");
@@ -188,10 +196,10 @@ public enum Tamanos{
                 int opcion_= validarInt();
                 switch (opcion_) {
                     case 1:
-                        gestionAgregarPlantaNueva();
+                        AgregarPlantaNueva();
                         break;
                     case 2:
-                        gestionAgregarPlantaExistente();
+                        AgregarPlantaExistente();
                         break;
                 }
                 break;

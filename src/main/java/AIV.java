@@ -47,4 +47,7 @@ public class AIV {
             }
         }
     }
+    public boolean ExisteArchivo(){
+        return gestorArchivo.existeArchivo();
+    }
 }

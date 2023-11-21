@@ -31,7 +31,9 @@ public class GestorArchivo {
 
 
         }
+    public void agregarPlantaExistente(){
 
+    }
 
     // dividir método en otros métodos
 
@@ -66,10 +68,10 @@ public class GestorArchivo {
 
 
 
-    public boolean existePlanta(Planta plant){
+    public boolean existePlanta(String name, int id){
         ArrayList<Planta> plantas = obtenerPlantasArchivo();
-        for(int i = 0; i < plantas.size(); i++){
-            if(plantas.get(i)==plant){
+        for(Planta plant: plantas){
+            if(plant.getNombre().equalsIgnoreCase(name) && plant.getId()==id){
                 return true;
             }
         }
@@ -161,6 +163,25 @@ public class GestorArchivo {
 
 
     // Dividir método anterior en otros métodos
+
+
+
+    public void verificacionPlantaExistente(String name, int id,int cantidad){
+        if(existeArchivo()){
+            if(existePlanta(name, id)){
+                agregarPlantaExistenteArchivo(name, id, cantidad);
+
+            }else{
+                System.out.println("No existe la planta");
+            }
+        }else{
+
+        }
+
+    }
+
+    Public void crearPlantaarchivo
+
 
     public void agregarPlantaExistenteArchivo(String nombre, int id, int cantidad){
         try {
