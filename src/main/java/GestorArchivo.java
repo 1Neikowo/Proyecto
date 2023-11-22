@@ -37,41 +37,15 @@ public class GestorArchivo {
 
     // dividir método en otros métodos
 
-    public void quitarPlantaArchivo(String nombre, int id, int cantidad){
-        try {
-            File archivo = new File(nombreArchivo);
-            List<String> lineas = new ArrayList<>();
-
-            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    String[] partes = linea.split(",");
-                    if (partes[1].equals(nombre)&& Integer.parseInt(partes[0])==id) {
-                        int cantidadnueva = Integer.parseInt(partes[6]) - cantidad;
-                        lineas.add(Integer.parseInt(partes[0]) + "," +partes[1]+","+partes[2]+ ","+partes[3] +","+partes[4]+ ","+partes[5] +","+cantidadnueva);
-                    } else {
-                        lineas.add(linea);
-                    }
-                }
-            }
-
-            try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
-                for (String linea : lineas) {
-                    pw.println(linea);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
 
-    public boolean existePlanta(String name, int id){
+
+    public boolean existePlanta(Planta plant){
         ArrayList<Planta> plantas = obtenerPlantasArchivo();
-        for(Planta plant: plantas){
-            if(plant.getNombre().equalsIgnoreCase(name) && plant.getId()==id){
+        for(Planta planta: plantas){
+            if(planta.getNombre().equals(plant.getNombre()) && planta.getId()==plant.getId()){
                 return true;
             }
         }
@@ -135,7 +109,7 @@ public class GestorArchivo {
 
 
     }
-    /*public void eliminarPlanta(String nombreAEliminar) {
+    public void eliminarPlanta(String nombreAEliminar) {
         List<String> lineas = new ArrayList<>();
 
         try {
@@ -159,57 +133,56 @@ public class GestorArchivo {
         } catch (IOException e) {
             System.out.println("Error al eliminar planta: " + e.getMessage());
         }
-    }*/
+    }
 
 
     // Dividir método anterior en otros métodos
 
 
 
-    public void verificacionPlantaExistente(String name, int id,int cantidad){
-        if(existeArchivo()){
-            if(existePlanta(name, id)){
-                agregarPlantaExistenteArchivo(name, id, cantidad);
-
-            }else{
-                System.out.println("No existe la planta");
-            }
-        }else{
-
-        }
-
-    }
-
-    Public void crearPlantaarchivo
-
-
-    public void agregarPlantaExistenteArchivo(String nombre, int id, int cantidad){
+    public void modificarCantidadPlantaArchivo(String nombre, int id, int cantidad){
         try {
             File archivo = new File(nombreArchivo);
-            List<String> lineas = new ArrayList<>();
-
-            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    String[] partes = linea.split(",");
-                    if (partes[1].equals(nombre)&& Integer.parseInt(partes[0])==id) {
-                        int cantidadnueva = Integer.parseInt(partes[6]) + cantidad;
-                        lineas.add(Integer.parseInt(partes[0]) + "," +partes[1]+","+partes[2]+ ","+partes[3] +","+partes[4]+ ","+partes[5] +","+cantidadnueva);
-                    } else {
-                        lineas.add(linea);
-                    }
-                }
-            }
-
-            try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
-                for (String linea : lineas) {
-                    pw.println(linea);
-                }
-            }
+            List<String> lineas = leerArchivo(archivo, nombre, id, cantidad);
+            escribirArchivo(archivo, lineas);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private List<String> leerArchivo(File archivo, String nombre, int id, int cantidad) throws IOException {
+        List<String> lineas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                lineas.add(actualizarCantidad(linea, nombre, id, cantidad));
+            }
+        }
+        return lineas;
+    }
+
+    private String actualizarCantidad(String linea, String nombre, int id, int cantidad) {
+        String[] partes = linea.split(",");
+        if (partes[1].equals(nombre) && Integer.parseInt(partes[0]) == id) {
+            System.out.println("Se encontró la planta");
+            return partes[0] + "," + partes[1] + "," + partes[2] + "," + partes[3] + "," + partes[4] + "," + partes[5] + "," + cantidad;
+        } else {
+            return linea;
+        }
+    }
+
+    private void escribirArchivo(File archivo, List<String> lineas) throws IOException {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
+            for (String linea : lineas) {
+                pw.println(linea);
+            }
+        }
+    }
+
+
+
+
+
 
 
 

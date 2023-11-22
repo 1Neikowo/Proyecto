@@ -12,8 +12,8 @@ public class AIV {
     public void agregarPlantaNueva(Planta planta) throws IOException {
         gestorArchivo.agregarPlantaArchivo(planta);
     }
-    public void  agregarPlantaExistente(String nombre, int id, int cantidad) throws IOException {
-        gestorArchivo.agregarPlantaExistenteArchivo(nombre, id, cantidad);
+    public void  modificarCantidadPlanta(String nombre, int id, int cantidad) throws IOException {
+        gestorArchivo.modificarCantidadPlantaArchivo(nombre, id, cantidad);
     }
     public void eliminarPlanta(String nombre, int id, int cantidad){
         gestorArchivo.quitarPlantaArchivo(nombre, id, cantidad);
@@ -30,8 +30,8 @@ public class AIV {
         return null;
     }
 
-    public boolean existeplanta(Planta plant){
-        return gestorArchivo.existePlanta(plant);
+    public boolean existeplanta(Planta planta){
+        return gestorArchivo.existePlanta(planta);
     }
     public ArrayList<Planta> obtenerPlantas(){
         listaDePlantas = gestorArchivo.obtenerPlantasArchivo();
