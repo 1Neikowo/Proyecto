@@ -29,7 +29,6 @@ public class GestorArchivo {
             agregarPlantaNuevaArchivoNoExiste(planta);
         }
 
-
         }
     public void agregarPlantaExistente(){
 
@@ -51,6 +50,9 @@ public class GestorArchivo {
         }
         return false;
     }
+    //Metodo para agregar una planta a un archivo existente
+    //Funcionamiento FileWriter: Dado que el archivo existe, se agregara la informacion en la última fila, sin sobreescribir la preexistente dado el boolean entregado.
+    //FileWriter segundo parametro boolean: true para agregar la informacion al final del archivo, false para sobreescribir el archivo.
     public void agregarPlantaNuevaArchivoExiste(Planta planta) throws IOException{
         try {
             //Agregar planta a un archivo existente
@@ -62,10 +64,12 @@ public class GestorArchivo {
             e.printStackTrace();
         }
     }
+
+    //Metodo para agregar una planta a un archivo no existente
+    //Funcionamiento FileWriter: Dado que el archivo no existe, se creara un archivo nuevo y se agregara la informacion en la primera fila
     public void agregarPlantaNuevaArchivoNoExiste(Planta planta) throws IOException{
         try {
             //Crear un archivo y agregar planta
-            System.out.println("No se halló un archivo, se creara uno nuevo");
             BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
             writer.write(planta.toString());
             writer.newLine();
@@ -98,57 +102,58 @@ public class GestorArchivo {
         return plantas;
     }
 
-    public Planta buscarPlanta(String name){
-        ArrayList<Planta> plantas = obtenerPlantasArchivo();
-        for(int i = 0; i < plantas.size(); i++){
-            if(plantas.get(i).getNombre().equalsIgnoreCase(name)){
-                return plantas.get(i);
+    public void guardarCambios(ArrayList<Planta> plantas) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo,false))) {
+            for (Planta persona : plantas) {
+                bw.write(persona.toString());
+                bw.newLine();
             }
-        }
-        return null;
-
-
-    }
-    public void eliminarPlanta(String nombreAEliminar) {
-        List<String> lineas = new ArrayList<>();
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                if (!linea.startsWith(nombreAEliminar + ",")) {
-                    lineas.add(linea);
-                }
-            }
-            br.close();
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo,true));
-            for (String l : lineas) {
-                bw.write(l + System.lineSeparator());
-            }
-            bw.close();
-
-            System.out.println("Planta eliminada correctamente.");
-        } catch (IOException e) {
-            System.out.println("Error al eliminar planta: " + e.getMessage());
-        }
-    }
-
-
-    // Dividir método anterior en otros métodos
-
-
-
-    public void modificarCantidadPlantaArchivo(String nombre, int id, int cantidad){
-        try {
-            File archivo = new File(nombreArchivo);
-            List<String> lineas = leerArchivo(archivo, nombre, id, cantidad);
-            escribirArchivo(archivo, lineas);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private List<String> leerArchivo(File archivo, String nombre, int id, int cantidad) throws IOException {
         List<String> lineas = new ArrayList<>();

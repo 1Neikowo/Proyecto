@@ -21,7 +21,7 @@ public class AIV {
 
 
     public Planta buscarPlanta(String nombre,int id){
-        ArrayList<Planta> listaDePlantas=obtenerPlantas();
+        obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 return listaDePlantas.get(i);
@@ -33,9 +33,8 @@ public class AIV {
     public boolean existeplanta(Planta planta){
         return gestorArchivo.existePlanta(planta);
     }
-    public ArrayList<Planta> obtenerPlantas(){
+    public void obtenerPlantas(){
         listaDePlantas = gestorArchivo.obtenerPlantasArchivo();
-        return listaDePlantas;
     }
 
 
