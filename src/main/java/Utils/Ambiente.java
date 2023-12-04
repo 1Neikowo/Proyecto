@@ -1,4 +1,4 @@
-package Modelo;
+package Utils;
 
 public enum Ambiente {
     Interior, Exterior
