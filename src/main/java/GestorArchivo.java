@@ -24,36 +24,17 @@ public class GestorArchivo {
     public void agregarPlantaArchivo(Planta planta) throws IOException {
         boolean existeArchivo = existeArchivo();
         if (existeArchivo) {
-            agregarPlantaNuevaArchivoExiste(planta);
+            agregarPlantaArchivoExiste(planta);
         } else {
-            agregarPlantaNuevaArchivoNoExiste(planta);
+            agregarPlantaArchivoNoExiste(planta);
+        }
         }
 
-        }
-    public void agregarPlantaExistente(){
 
-    }
-
-    // dividir método en otros métodos
-
-
-
-
-
-
-    public boolean existePlanta(Planta plant){
-        ArrayList<Planta> plantas = obtenerPlantasArchivo();
-        for(Planta planta: plantas){
-            if(planta.getNombre().equals(plant.getNombre()) && planta.getId()==plant.getId()){
-                return true;
-            }
-        }
-        return false;
-    }
     //Metodo para agregar una planta a un archivo existente
     //Funcionamiento FileWriter: Dado que el archivo existe, se agregara la informacion en la última fila, sin sobreescribir la preexistente dado el boolean entregado.
     //FileWriter segundo parametro boolean: true para agregar la informacion al final del archivo, false para sobreescribir el archivo.
-    public void agregarPlantaNuevaArchivoExiste(Planta planta) throws IOException{
+    public void agregarPlantaArchivoExiste(Planta planta) throws IOException{
         try {
             //Agregar planta a un archivo existente
             BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, true));
@@ -67,7 +48,7 @@ public class GestorArchivo {
 
     //Metodo para agregar una planta a un archivo no existente
     //Funcionamiento FileWriter: Dado que el archivo no existe, se creara un archivo nuevo y se agregara la informacion en la primera fila
-    public void agregarPlantaNuevaArchivoNoExiste(Planta planta) throws IOException{
+    public void agregarPlantaArchivoNoExiste(Planta planta) throws IOException{
         try {
             //Crear un archivo y agregar planta
             BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
@@ -103,7 +84,7 @@ public class GestorArchivo {
     }
 
     public void guardarCambios(ArrayList<Planta> plantas) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo,false))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo, false))) {
             for (Planta persona : plantas) {
                 bw.write(persona.toString());
                 bw.newLine();
@@ -116,81 +97,4 @@ public class GestorArchivo {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private List<String> leerArchivo(File archivo, String nombre, int id, int cantidad) throws IOException {
-        List<String> lineas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                lineas.add(actualizarCantidad(linea, nombre, id, cantidad));
-            }
-        }
-        return lineas;
     }
-
-    private String actualizarCantidad(String linea, String nombre, int id, int cantidad) {
-        String[] partes = linea.split(",");
-        if (partes[1].equals(nombre) && Integer.parseInt(partes[0]) == id) {
-            System.out.println("Se encontró la planta");
-            return partes[0] + "," + partes[1] + "," + partes[2] + "," + partes[3] + "," + partes[4] + "," + partes[5] + "," + cantidad;
-        } else {
-            return linea;
-        }
-    }
-
-    private void escribirArchivo(File archivo, List<String> lineas) throws IOException {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
-            for (String linea : lineas) {
-                pw.println(linea);
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-}
-
-
