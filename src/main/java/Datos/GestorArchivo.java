@@ -1,3 +1,7 @@
+package Datos;
+
+import Modelo.Planta;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -5,14 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.util.List;
-import java.io.PrintWriter;
 
 public class GestorArchivo {
     private String nombreArchivo;
 
     public GestorArchivo() {
-        this.nombreArchivo = "plantas.txt";
+        this.nombreArchivo = "src/main/java/Datos/plantas.txt";
     }
 
     public boolean existeArchivo() {
@@ -51,10 +53,10 @@ public class GestorArchivo {
     public void agregarPlantaArchivoNoExiste(Planta planta) throws IOException{
         try {
             //Crear un archivo y agregar planta
-            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo,false));
             writer.write(planta.toString());
             writer.newLine();
-            System.out.println("Planta añadida con exito");
+            System.out.println("Modelo.Planta añadida con exito");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.util.Scanner;
 
 public class Login {
@@ -6,7 +8,7 @@ public class Login {
     public void iniciarSesion(Admin admin) {
         boolean autenticado = false;
         while(!autenticado) {
-            System.out.println("\nBienvenido a AIV    Ingrese 'x' para salir");
+            System.out.println("\nBienvenido a Modelo.AIV    Ingrese 'x' para salir");
             System.out.println("Credenciales: admin | admin\n");
 
             System.out.print("Usuario: ");

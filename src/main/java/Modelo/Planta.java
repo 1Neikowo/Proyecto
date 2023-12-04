@@ -1,3 +1,5 @@
+package Modelo;
+
 public class Planta {
     private static int contadorPlanta=0;
     private int id;

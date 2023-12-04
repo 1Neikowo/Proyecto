@@ -1,3 +1,5 @@
+package Modelo;
+
 public class Admin {
     private String nombre;
     private String password;
