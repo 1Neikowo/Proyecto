@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-public class GestorArchivo {
+public class GestorPlantasArchivo {
     private String nombreArchivo;
 
-    public GestorArchivo() {
+    public GestorPlantasArchivo() {
         this.nombreArchivo = "src/main/java/Datos/plantas.txt";
     }
 
@@ -22,7 +22,7 @@ public class GestorArchivo {
         File file = new File(nombreArchivo);
         return file.exists();
     }
-
+    /*
     public void agregarPlantaArchivo(Planta planta) throws IOException {
         boolean existeArchivo = existeArchivo();
         if (existeArchivo) {
@@ -62,7 +62,7 @@ public class GestorArchivo {
             e.printStackTrace();
         }
     }
-
+*/
 
     public ArrayList<Planta> obtenerPlantasArchivo(){
         //Se obitiene el arreglo de plantas que se almacenó en el arhivo de texto
@@ -99,4 +99,4 @@ public class GestorArchivo {
 
 
 
-    }
+}

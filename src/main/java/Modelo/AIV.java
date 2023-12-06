@@ -2,18 +2,17 @@ package Modelo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import Datos.GestorArchivo;
+import Datos.GestorPlantasArchivo;
 
 public class AIV {
-    private GestorArchivo gestorArchivo;
+    private GestorPlantasArchivo gestorArchivo;
     private ArrayList<Planta> listaDePlantas;
     public AIV(){
         listaDePlantas = new ArrayList<>();
-        gestorArchivo = new GestorArchivo();
+        gestorArchivo = new GestorPlantasArchivo();
     }
     //Getter listaDePlantas
     public ArrayList<Planta> obtenerListaDePlantas(){
-        obtenerPlantas();
         return listaDePlantas;
     }
     //Setter listaDePlantas
@@ -22,11 +21,10 @@ public class AIV {
     }
     //Metodo para agregar una planta nueva
     public void agregarPlantaNueva(Planta planta) throws IOException {
-        gestorArchivo.agregarPlantaArchivo(planta);
+        listaDePlantas.add(planta);
     }
     //Metodo para verificar si existe una planta
     public boolean existeplanta(String nombre, int id) {
-        obtenerPlantas();
         for (int i = 0; i < listaDePlantas.size(); i++) {
             if (listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId() == id) {
                 return true;}
@@ -45,7 +43,7 @@ public class AIV {
         }
     }
     //Metodo para eliminar una planta
-    public void eliminarPlanta(String nombre, int id, int cantidad){
+    public void eliminarPlanta(String nombre, int id){
         obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
@@ -75,5 +73,9 @@ public class AIV {
             }
         }
     }
+    public void guardarCambios(){
+        gestorArchivo.guardarCambios(listaDePlantas);
+    }
+
 
 }
