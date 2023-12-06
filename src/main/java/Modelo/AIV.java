@@ -77,5 +77,12 @@ public class AIV {
         gestorArchivo.guardarCambios(listaDePlantas);
     }
 
-
+    public void obtenerUltimoID(){
+        if(listaDePlantas.size()!=0){
+        int id=listaDePlantas.get(listaDePlantas.size()-1).getId();
+        gestorArchivo.guardarUltimoID(id);
+        }else{
+            gestorArchivo.guardarUltimoID(1);
+        }
+    }
 }
