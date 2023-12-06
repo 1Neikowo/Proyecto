@@ -11,17 +11,18 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class GestorPlantasArchivo {
-    private String nombreArchivo;
+    private String rutaArchivo;
 
     public GestorPlantasArchivo() {
-        this.nombreArchivo = "src/main/java/Datos/plantas.txt";
+        this.rutaArchivo = "src/main/java/Datos/plantas.txt";
     }
 
     public boolean existeArchivo() {
         //Se verifica si existe el archivo con el nombre "nombreArchivo"
-        File file = new File(nombreArchivo);
+        File file = new File(rutaArchivo);
         return file.exists();
     }
+
     /*
     public void agregarPlantaArchivo(Planta planta) throws IOException {
         boolean existeArchivo = existeArchivo();
@@ -69,7 +70,7 @@ public class GestorPlantasArchivo {
         ArrayList<Planta> plantas = new ArrayList<>();
         if (existeArchivo()){
             try {
-                BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo));
+                BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo));
                 String linea = reader.readLine();
                 while (linea != null){
                     String[] datos = linea.split(",");
@@ -86,7 +87,7 @@ public class GestorPlantasArchivo {
     }
 
     public void guardarCambios(ArrayList<Planta> plantas) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo, false))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, false))) {
             for (Planta persona : plantas) {
                 bw.write(persona.toString());
                 bw.newLine();
