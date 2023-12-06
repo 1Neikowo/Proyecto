@@ -10,6 +10,7 @@ public class VentanaLogin extends VentanaBase {
     private JTextField passwordField;
     private JButton btVolver;
     private JButton btIngresar;
+    private JLabel jlPasswordProv;
     public VentanaLogin() {
         super("Login", 500, 520);
         generarElementosVentana();
@@ -19,12 +20,17 @@ public class VentanaLogin extends VentanaBase {
         generarPasswordField();
         generarBotonVolver();
         generarBotonIngresar();
+        generarLabelPasswordProv();
     }
     public void generarTitulo() {
         String textoTitulo = "Bienvenido a AIV";
         String textoSubtitulo = "Ingresa tus datos para comenzar";
         super.generarJLabelEncabezado(textoTitulo, 125,40,300,50);
         super.generarJLabel(textoSubtitulo, 125,80,300,50);
+    }
+    public void generarLabelPasswordProv(){
+        String textoNombre = "Contraseña Predeterminada: 123";
+        super.generarJLabel(textoNombre, 125, 140, 250, 20);
     }
     public void generarPasswordField(){
         String textoNombre = "Password:";
@@ -48,19 +54,17 @@ public class VentanaLogin extends VentanaBase {
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }else{
                 GestorPasswordArchivo gestorPass = new GestorPasswordArchivo();
+                gestorPass.obtenerAdmin();
                 if(passwordField.getText().equals(gestorPass.getAdmin().getPassword())){
                     new VentanaMenuPrincipal();
                     this.dispose();
                 }else{
-                    JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "Contraseña Incorrecta", JOptionPane.WARNING_MESSAGE);
                 }
 
-
                 }
-
-
-            }
         }
+
         if (event.getSource() == btVolver){
             JOptionPane.showMessageDialog(this, "Hasta Luego! 😉");
             this.dispose();

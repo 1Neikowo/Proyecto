@@ -12,7 +12,7 @@ public class GestorPasswordArchivo {
 
     public GestorPasswordArchivo() {
         this.rutaPassword = "src/main/java/Datos/password.txt";
-        Admin admin = obtenerAdmin();
+
     }
 
     public boolean existeArchivoPassword() {
@@ -21,21 +21,22 @@ public class GestorPasswordArchivo {
         return file.exists();
     }
 
-    public Admin obtenerAdmin() {
+    public void obtenerAdmin() {
         if (existeArchivoPassword()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(rutaPassword))) {
                 String linea = reader.readLine();
                 if (linea != null) {
-                    new Admin(linea);
+                     this.admin=new Admin(linea); // Devuelve el objeto Admin creado con la línea del archivo
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        return ;
     }
+
     public Admin getAdmin() {
-        return this.admin;
+        return admin;
     }
 
 }
