@@ -1,4 +1,6 @@
 package Guis;
+import Modelo.AIV;
+import Modelo.Planta;
 import Utils.Ambiente;
 import Utils.Clasificaciones;
 import Utils.Tamaño;
@@ -7,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class VentanaAgregar extends VentanaBase {
     private JTextField especieTextField;
@@ -17,10 +20,12 @@ public class VentanaAgregar extends VentanaBase {
     private JComboBox listaAmbientes;
     private JButton btVolver;
     private JButton btAceptar;
+    private AIV aiv;
 
 
-    public VentanaAgregar(){
+    public VentanaAgregar(AIV aiv){
         super("Agregar Plantas", 500, 520);
+        this.aiv = aiv;
         generarElementosVentana();
     }
     public void generarElementosVentana(){
@@ -120,7 +125,16 @@ public class VentanaAgregar extends VentanaBase {
         this.add(btAceptar);
         btAceptar.addActionListener(this);
     }
-
+    public Planta crearPlanta() {
+        String especie = especieTextField.getText();
+        String clasificacion = listaClasificaciones.getSelectedItem().toString();
+        String tamano = listaTamanos.getSelectedItem().toString();
+        String ambiente = listaAmbientes.getSelectedItem().toString();
+        int precio = Integer.parseInt(precioTextField.getText());
+        int cantidad = Integer.parseInt(cantidadTextField.getText());
+        Planta planta  = new Planta(especie, clasificacion, tamano, ambiente, precio, cantidad);
+        return planta;
+    }
 
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == listaAmbientes){
@@ -133,13 +147,16 @@ public class VentanaAgregar extends VentanaBase {
             listaTamanos.setPopupVisible(false);
         }
         if(event.getSource() == btVolver){
-            new VentanaMenuPrincipal();
+            new VentanaMenuPrincipal(aiv);
             this.dispose();
         }
         if(event.getSource() == btAceptar){
-            if (validacionCampos()){
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            if (!validacionCampos()){
+                Planta planta = crearPlanta();
+                aiv.agregarPlantaNueva(planta);
+                JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
             }else{
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 
             }
         }

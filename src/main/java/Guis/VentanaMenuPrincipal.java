@@ -1,4 +1,6 @@
 package Guis;
+import Modelo.AIV;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -10,9 +12,12 @@ public class VentanaMenuPrincipal extends VentanaBase {
     private JButton btModificar;
     private JButton btVolver;
     private JButton btCambiarPass;
+    private AIV aiv;
 
-    public VentanaMenuPrincipal() {
+
+    public VentanaMenuPrincipal(AIV aiv) {
         super("Menú", 500, 650);
+        this.aiv = aiv;
         generarElementosVentana();
 
     }
@@ -79,27 +84,25 @@ public class VentanaMenuPrincipal extends VentanaBase {
 
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == btAgregar) {
-            new VentanaAgregar();
+            new VentanaAgregar(aiv);
             this.dispose();
         }
         if (event.getSource() == btEliminar) {
-            new VentanaEliminar();
+            new VentanaEliminar(aiv);
             this.dispose();
         }
         if (event.getSource() == btModificar) {
-            new VentanaModificar();
+            new VentanaModificar(aiv);
             this.dispose();
         }
         if (event.getSource() == btBuscar) {
-            new VentanaBuscar();
+            new VentanaBuscar(aiv);
             this.dispose();
         }
         if (event.getSource() == btMostrar) {
-            //  new ventanaMostrar();
-            this.dispose();
         }
         if (event.getSource() == btVolver) {
-            new VentanaLogin();
+            new VentanaLogin(aiv);
             this.dispose();
         }
         if (event.getSource() == btCambiarPass){

@@ -1,5 +1,7 @@
 package Guis;
 
+import Modelo.AIV;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -11,8 +13,10 @@ public class VentanaModificar extends VentanaBase{
     private JTextField idTextField;
     private JButton btAceptar;
     private JButton btVolver;
-    public VentanaModificar(){
+    private AIV aiv;
+    public VentanaModificar(AIV aiv){
         super("Modificar Cantidad Planta",500,520);
+        this.aiv = aiv;
         generarElementosVentana();
     }
     public void generarElementosVentana(){
@@ -91,7 +95,7 @@ public class VentanaModificar extends VentanaBase{
     }
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == btVolver){
-            new VentanaMenuPrincipal();
+            new VentanaMenuPrincipal(aiv);
             this.dispose();
         }
         if(event.getSource() == btAceptar){

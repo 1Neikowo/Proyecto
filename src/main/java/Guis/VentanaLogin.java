@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 import Datos.GestorPasswordArchivo;
+import Modelo.AIV;
 import Modelo.Admin;
 
 public class VentanaLogin extends VentanaBase {
@@ -11,8 +12,11 @@ public class VentanaLogin extends VentanaBase {
     private JButton btVolver;
     private JButton btIngresar;
     private JLabel jlPasswordProv;
-    public VentanaLogin() {
+    private AIV aiv;
+
+    public VentanaLogin(AIV aiv) {
         super("Login", 500, 520);
+        this.aiv = aiv;
         generarElementosVentana();
     }
     public void generarElementosVentana() {
@@ -56,7 +60,7 @@ public class VentanaLogin extends VentanaBase {
                 GestorPasswordArchivo gestorPass = new GestorPasswordArchivo();
                 gestorPass.obtenerAdmin();
                 if(passwordField.getText().equals(gestorPass.getAdmin().getPassword())){
-                    new VentanaMenuPrincipal();
+                    new VentanaMenuPrincipal(aiv);
                     this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "Contraseña Incorrecta", JOptionPane.WARNING_MESSAGE);

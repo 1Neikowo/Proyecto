@@ -1,5 +1,7 @@
 package Guis;
 
+import Modelo.AIV;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -10,9 +12,13 @@ public class VentanaBuscar extends VentanaBase{
     private JTextField idTextField;
     private JButton btAceptar;
     private JButton btVolver;
-    public VentanaBuscar(){
+    private AIV aiv;
+
+    public VentanaBuscar(AIV aiv ){
         super("Buscar Planta",500,520);
+        this.aiv = aiv;
         generarElementosVentana();
+
     }
     public void generarElementosVentana(){
         generarEncabezado();
@@ -66,7 +72,7 @@ public class VentanaBuscar extends VentanaBase{
     }
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == btVolver){
-            new VentanaMenuPrincipal();
+            new VentanaMenuPrincipal(aiv);
             this.dispose();
         }
         if(event.getSource() == btAceptar){
