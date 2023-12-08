@@ -1,4 +1,5 @@
 package Guis;
+import Datos.GestorAdminArchivo;
 import Modelo.AIV;
 
 import javax.swing.*;
@@ -83,30 +84,46 @@ public class VentanaMenuPrincipal extends VentanaBase {
 
 
     public void actionPerformed(ActionEvent event) {
+
         if (event.getSource() == btAgregar) {
             new VentanaAgregar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btEliminar) {
             new VentanaEliminar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btModificar) {
             new VentanaModificar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btBuscar) {
             new VentanaBuscar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btMostrar) {
         }
+
         if (event.getSource() == btVolver) {
             new VentanaLogin(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btCambiarPass){
-            JOptionPane.showInputDialog(this, "Ingrese la nueva contraseña", "Cambio de contraseña", JOptionPane.PLAIN_MESSAGE);
+            String nuevapassword=JOptionPane.showInputDialog(this, "Ingrese la nueva contraseña", "Cambio de contraseña", JOptionPane.PLAIN_MESSAGE);
+            if(nuevapassword != null && !nuevapassword.isEmpty()){
+                GestorAdminArchivo gestor = new GestorAdminArchivo();
+                gestor.getAdmin().setPassword(nuevapassword);
+                gestor.guardarCambios();
+                JOptionPane.showMessageDialog(this, "La contraseña se ha cambiado con éxito", "Contraseña cambiada", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                JOptionPane.showMessageDialog(this, "No has ingresado nada ", "Contraseña no cambiada", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

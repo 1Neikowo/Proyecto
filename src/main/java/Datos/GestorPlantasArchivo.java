@@ -97,9 +97,9 @@ public class GestorPlantasArchivo {
 //Si el archivo EXISTE, se procede a la lectura con normalidad
 //Si el archivo NO EXISTE, se crea un archivo nuevo y se vuelve a intentar la lectura
     public ArrayList<Planta> obtenerPlantasArchivo() {
-        //Se obitiene el arreglo de plantas que se almacenó en el arhivo de texto
         ArrayList<Planta> plantas = new ArrayList<>();
         if (existeArchivoPlantas()) {
+            //Si el archivo estaba vacío, se retorna un arreglo vacío
             if (archivoPlantasVacio()) {
                 return plantas;
             } else{
@@ -127,14 +127,21 @@ public class GestorPlantasArchivo {
 
     //Metodo encargado de guardar en el archivo los cambios realizados en listaDePlantas
     public void guardarCambios(ArrayList<Planta> plantas) {
+        if(existeArchivoPlantas()) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
             for (Planta planta : plantas) {
                 bw.write(planta.toString());
                 bw.newLine();
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
+
+        }else{
+            createArchivoPlantas();
+            guardarCambios(plantas);
+        }
+
     }
 
 

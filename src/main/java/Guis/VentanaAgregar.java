@@ -155,6 +155,12 @@ public class VentanaAgregar extends VentanaBase {
                 Planta planta = crearPlanta();
                 aiv.agregarPlantaNueva(planta);
                 JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
+                cantidadTextField.setText("");
+                precioTextField.setText("");
+                especieTextField.setText("");
+                listaAmbientes.setSelectedItem(null);
+                listaClasificaciones.setSelectedItem(null);
+                listaTamanos.setSelectedItem(null);
             }else{
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 
@@ -162,8 +168,10 @@ public class VentanaAgregar extends VentanaBase {
         }
     }
     public boolean validacionCampos(){
+
         return especieTextField.getText().isEmpty() || precioTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty()
                 || listaAmbientes.getSelectedItem() == null || listaTamanos == null || listaClasificaciones == null;
+
     }
 
 

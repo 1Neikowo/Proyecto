@@ -3,7 +3,7 @@ package Guis;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-import Datos.GestorPasswordArchivo;
+import Datos.GestorAdminArchivo;
 import Modelo.AIV;
 import Modelo.Admin;
 
@@ -57,9 +57,9 @@ public class VentanaLogin extends VentanaBase {
             if (passwordField.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }else{
-                GestorPasswordArchivo gestorPass = new GestorPasswordArchivo();
+                GestorAdminArchivo gestorPass = new GestorAdminArchivo();
                 gestorPass.obtenerAdmin();
-                if(passwordField.getText().equals(gestorPass.getAdmin().getPassword())){
+                if(gestorPass.getAdmin().autenticar(passwordField.getText())){
                     new VentanaMenuPrincipal(aiv);
                     this.dispose();
                 }else{

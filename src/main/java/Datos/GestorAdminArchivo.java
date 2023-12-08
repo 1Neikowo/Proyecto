@@ -1,16 +1,17 @@
 package Datos;
 import Modelo.Admin;
-import Modelo.Planta;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
-public class GestorPasswordArchivo {
+public class GestorAdminArchivo {
     private String rutaPassword;
     private Admin admin;
 
-    public GestorPasswordArchivo() {
+    public GestorAdminArchivo() {
         this.rutaPassword = "src/main/java/Datos/password.txt";
 
     }
@@ -34,8 +35,17 @@ public class GestorPasswordArchivo {
         }
         return ;
     }
+    public void guardarCambios(){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPassword, false))) {
+            bw.write(this.admin.getPassword());
+            bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Admin getAdmin() {
+        obtenerAdmin();
         return admin;
     }
 

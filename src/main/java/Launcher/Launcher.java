@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class Launcher {
     public static void main(String[] args) throws IOException {
         AIV aiv = new AIV();
+        aiv.obtenerPlantas();
         SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
+        aiv.guardarCambios();
     }
 }
