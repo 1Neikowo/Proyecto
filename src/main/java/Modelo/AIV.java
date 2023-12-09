@@ -23,6 +23,7 @@ public class AIV {
     //Metodo para agregar una planta nueva
     public void agregarPlantaNueva(Planta planta) {
         listaDePlantas.add(planta);
+        guardarCambios();
     }
     //Metodo para verificar si existe una planta
     public boolean existeplanta(String nombre, int id) {
@@ -51,11 +52,12 @@ public class AIV {
     }
 
     //Metodo para modificar la cantidad de una planta
-    public void  modificarCantidadPlanta(String nombre, int id, int cantidad) throws IOException {
+    public void  modificarCantidadPlanta(String nombre, int id, int cantidad)  {
         obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.get(i).setCantidad(cantidad);
+                guardarCambios();
             }
         }
     }
@@ -65,6 +67,7 @@ public class AIV {
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.remove(i);
+                guardarCambios();
             }
         }
     }
@@ -93,10 +96,25 @@ public class AIV {
 
     public void obtenerUltimoID(){
         if(listaDePlantas.size()!=0){
-        int id=listaDePlantas.get(listaDePlantas.size()-1).getId();
+        String  id= buscarIdMayor();
         gestorArchivo.guardarUltimoID(id);
         }else{
-            gestorArchivo.guardarUltimoID(1);
+            gestorArchivo.guardarUltimoID("0");
         }
+    }
+    public String buscarIdMayor(){
+        int contador=0;
+        for(int i=0;i<listaDePlantas.size(); i++){
+            int idActual=listaDePlantas.get(i).getId();
+            if(idActual>=contador){
+                contador= idActual;
+            }else{
+                continue;
+            }
+        }
+        return String.valueOf(contador);
+    }
+    public String leerUltimoIDArchivo(){
+        return gestorArchivo.leerUltimoID();
     }
 }

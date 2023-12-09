@@ -19,14 +19,22 @@ public class GestorPlantasArchivo {
         this.rutaID = "src/main/java/Datos/id.txt";
     }
 
-    public void guardarUltimoID(int id) {
+    public void guardarUltimoID(String id) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaID, false))) {
             bw.write(id);
-            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public  String leerUltimoID() {
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaID))) {
+            return br.readLine(); // Retorna la línea leída
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // En caso de error, retorna null
+        }
+    }
+
    /* public void agregarPlantaArchivo(Planta planta) {
         boolean existeArchivo = existeArchivoPlantas();
         if (existeArchivo) {

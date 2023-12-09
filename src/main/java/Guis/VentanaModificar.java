@@ -3,9 +3,7 @@ package Guis;
 import Modelo.AIV;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class VentanaModificar extends VentanaBase{
     private JTextField especieTextField;
@@ -18,6 +16,18 @@ public class VentanaModificar extends VentanaBase{
         super("Modificar Cantidad Planta",500,520);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }else{
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
     public void generarElementosVentana(){
         generarEncabezado();
@@ -99,11 +109,23 @@ public class VentanaModificar extends VentanaBase{
             this.dispose();
         }
         if(event.getSource() == btAceptar){
-            if (especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty()) {
+            if (validacionCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }else{
+                if(!aiv.existeplanta(especieTextField.getText(),Integer.parseInt(idTextField.getText()))){
+                    JOptionPane.showMessageDialog(this,"La planta buscada no existe","Planta no hallada",JOptionPane.WARNING_MESSAGE);
+                }else{
+                    AIV aiv= new AIV();
+                    aiv.modificarCantidadPlanta(especieTextField.getText(),Integer.parseInt(idTextField.getText()),Integer.parseInt(cantidadTextField.getText()));
+                    JOptionPane.showMessageDialog(this,"Se ha modificado la cantidad exitosamente","Cambio de cantidad",JOptionPane.INFORMATION_MESSAGE);
+                }
+
 
             }
         }
+    }
+    public boolean validacionCampos(){
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
+
     }
 }

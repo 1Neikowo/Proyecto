@@ -6,9 +6,7 @@ import Utils.Clasificaciones;
 import Utils.Tamaño;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.IOException;
 
 public class VentanaAgregar extends VentanaBase {
@@ -27,6 +25,18 @@ public class VentanaAgregar extends VentanaBase {
         super("Agregar Plantas", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }else{
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
     public void generarElementosVentana(){
         generarEncabezado();
@@ -93,7 +103,6 @@ public class VentanaAgregar extends VentanaBase {
         this.add(cantidadTextField);
 
     }
-
     public void generarListaTamanos(){
         super.generarJLabel("Tamaño:", 20, 250, 150, 20);
         listaTamanos = super.generarListaDesplegable(Tamaño.values(), 200, 250, 250, 20);
@@ -132,7 +141,8 @@ public class VentanaAgregar extends VentanaBase {
         String ambiente = listaAmbientes.getSelectedItem().toString();
         int precio = Integer.parseInt(precioTextField.getText());
         int cantidad = Integer.parseInt(cantidadTextField.getText());
-        Planta planta  = new Planta(especie, clasificacion, tamano, ambiente, precio, cantidad);
+        int id= Integer.valueOf(aiv.leerUltimoIDArchivo())+1;
+        Planta planta  = new Planta(id,especie, clasificacion, tamano, ambiente, precio, cantidad);
         return planta;
     }
 
