@@ -8,6 +8,8 @@ import Modelo.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class VentanaMostrar extends VentanaBase {
@@ -21,6 +23,16 @@ public class VentanaMostrar extends VentanaBase {
         this.aiv = aiv;
         this.setLayout(new BorderLayout());
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     public void generarElementosVentana() {
@@ -29,13 +41,12 @@ public class VentanaMostrar extends VentanaBase {
     }
 
 
-
     public void generarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Clasificacion", "Tamaño", "Ambiente", "Precio", "Cantidad"});
         ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
         for (Planta planta : plantas) {
-            model.addRow(new Object[]{planta.getId(), planta.getNombre(),planta.getClasificacion(), planta.getTamano(), planta.getAmbiente(), planta.getPrecio(), planta.getCantidad()});
+            model.addRow(new Object[]{planta.getId(), planta.getNombre(), planta.getClasificacion(), planta.getTamano(), planta.getAmbiente(), planta.getPrecio(), planta.getCantidad()});
         }
         // Creamos la tabla después de haber creado el modelo
         table = new JTable(model);
@@ -53,6 +64,7 @@ public class VentanaMostrar extends VentanaBase {
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btVolver) {
             new VentanaMenuPrincipal(aiv);

@@ -3,9 +3,7 @@ package Guis;
 import Modelo.AIV;
 import Modelo.Planta;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class VentanaBuscar extends VentanaBase {
     private JTextField especieTextField;
@@ -18,6 +16,16 @@ public class VentanaBuscar extends VentanaBase {
         super("Buscar Planta", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }
+            }
+        });
 
     }
 
@@ -86,13 +94,13 @@ public class VentanaBuscar extends VentanaBase {
         }
         if (event.getSource() == btAceptar) {
             if (!validacionCampos()) {
-                if(aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))){
+                if (aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
                     AIV aiv = new AIV();
                     Planta plantaHallada = aiv.buscarPlanta((especieTextField.getText()).toLowerCase(), Integer.parseInt(idTextField.getText()));
                     JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
                     especieTextField.setText("");
                     idTextField.setText("");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
                     especieTextField.setText("");
                     idTextField.setText("");

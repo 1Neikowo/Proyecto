@@ -1,6 +1,8 @@
 package Launcher;
 import javax.swing.*;
 import java.awt.*;
+
+import Guis.VentanaAgregar;
 import Guis.VentanaMostrar;
 import Modelo.AIV;
 import Modelo.Planta;
@@ -12,14 +14,10 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         AIV aiv = new AIV();
         aiv.obtenerPlantas();
-        ArrayList<Planta> plantas=aiv.obtenerListaDePlantas();
+        ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
 
         SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
-        for(Planta planta: plantas){
-            System.out.println(planta.toString());
-        }
-        
-        aiv.guardarCambios();
+
 
     }
 }

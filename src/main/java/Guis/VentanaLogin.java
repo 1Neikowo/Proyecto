@@ -2,6 +2,8 @@ package Guis;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import Datos.GestorAdminArchivo;
 import Modelo.AIV;
@@ -18,6 +20,18 @@ public class VentanaLogin extends VentanaBase {
         super("Login", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }else{
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
     public void generarElementosVentana() {
         generarTitulo();

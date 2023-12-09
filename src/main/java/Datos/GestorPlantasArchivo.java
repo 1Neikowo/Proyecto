@@ -66,6 +66,7 @@ public class GestorPlantasArchivo {
             e.printStackTrace();
         }
     }
+
     public boolean archivoPlantasVacio() {
         File archivo = new File(rutaPlantas);
         if (archivo.length() > 0) {
@@ -102,7 +103,7 @@ public class GestorPlantasArchivo {
             //Si el archivo estaba vacío, se retorna un arreglo vacío
             if (archivoPlantasVacio()) {
                 return plantas;
-            } else{
+            } else {
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(rutaPlantas));
                     String linea = reader.readLine();
@@ -117,27 +118,27 @@ public class GestorPlantasArchivo {
                     e.printStackTrace();
                 }
             }
-            } else{
-                createArchivoPlantas();
-                return obtenerPlantasArchivo();
-            }
-            return plantas;
+        } else {
+            createArchivoPlantas();
+            return obtenerPlantasArchivo();
         }
+        return plantas;
+    }
 
 
     //Metodo encargado de guardar en el archivo los cambios realizados en listaDePlantas
     public void guardarCambios(ArrayList<Planta> plantas) {
-        if(existeArchivoPlantas()) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
-            for (Planta planta : plantas) {
-                bw.write(planta.toString());
-                bw.newLine();
+        if (existeArchivoPlantas()) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
+                for (Planta planta : plantas) {
+                    bw.write(planta.toString());
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
 
-        }else{
+        } else {
             createArchivoPlantas();
             guardarCambios(plantas);
         }

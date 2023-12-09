@@ -4,6 +4,8 @@ import Modelo.AIV;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaMenuPrincipal extends VentanaBase {
     private JButton btAgregar;
@@ -20,6 +22,16 @@ public class VentanaMenuPrincipal extends VentanaBase {
         super("Menú", 500, 650);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }
+            }
+        });
 
     }
 

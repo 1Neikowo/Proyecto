@@ -3,9 +3,7 @@ package Guis;
 import Modelo.AIV;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class VentanaModificar extends VentanaBase{
     private JTextField especieTextField;
@@ -18,6 +16,16 @@ public class VentanaModificar extends VentanaBase{
         super("Modificar Cantidad Planta",500,520);
         this.aiv = aiv;
         generarElementosVentana();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }
+            }
+        });
     }
     public void generarElementosVentana(){
         generarEncabezado();
