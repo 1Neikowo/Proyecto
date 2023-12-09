@@ -87,8 +87,28 @@ public class VentanaEliminar extends VentanaBase{
             if (especieTextField.getText().isEmpty() || idTextField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }else{
+                if (!validacionCampos()) {
+                    if(aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))){
+                        aiv.eliminarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
+                        JOptionPane.showMessageDialog(this, "La planta ha sido eliminada", "Planta eliminada", JOptionPane.INFORMATION_MESSAGE);
+                        especieTextField.setText("");
+                        idTextField.setText("");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
+                        especieTextField.setText("");
+                        idTextField.setText("");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+
+                }
+
 
             }
         }
+    }
+    public boolean validacionCampos() {
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty();
     }
 }
