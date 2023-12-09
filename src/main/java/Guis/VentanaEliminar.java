@@ -18,6 +18,7 @@ public class VentanaEliminar extends VentanaBase{
         this.aiv = aiv;
         generarElementosVentana();
     }
+
     public void generarElementosVentana(){
         generarEncabezado();
         generarEspecieTextField();
@@ -25,6 +26,7 @@ public class VentanaEliminar extends VentanaBase{
         generarBotonAceptar();
         generarBotonVolver();
     }
+
     public void generarEncabezado() {
         String encabezado = "Eliminar Planta";
         super.generarJLabelEncabezado(encabezado,150,20,300,50);
