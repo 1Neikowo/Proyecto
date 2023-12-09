@@ -154,6 +154,7 @@ public class VentanaAgregar extends VentanaBase {
             if (!validacionCampos()){
                 Planta planta = crearPlanta();
                 aiv.agregarPlantaNueva(planta);
+                aiv.guardarCambios();
                 JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
                 cantidadTextField.setText("");
                 precioTextField.setText("");

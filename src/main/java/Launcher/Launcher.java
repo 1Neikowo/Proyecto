@@ -13,10 +13,11 @@ public class Launcher {
         AIV aiv = new AIV();
         aiv.obtenerPlantas();
         ArrayList<Planta> plantas=aiv.obtenerListaDePlantas();
+
+        SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
         for(Planta planta: plantas){
             System.out.println(planta.toString());
         }
-        SwingUtilities.invokeLater(() -> new VentanaMostrar(aiv));
         aiv.guardarCambios();
 
     }

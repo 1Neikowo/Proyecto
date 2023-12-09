@@ -19,19 +19,16 @@ public class VentanaMostrar extends VentanaBase {
     public VentanaMostrar(AIV aiv) {
         super("Plantas Almacenadas", 500, 520);
         this.aiv = aiv;
+        this.setLayout(new BorderLayout());
         generarElementosVentana();
     }
 
     public void generarElementosVentana() {
-        generarEncabezado();
         generarBotonVolver();
         generarTabla();
     }
 
-    public void generarEncabezado() {
-        String encabezado = "Mostrar Plantas";
-        super.generarJLabelEncabezado(encabezado, 150, 20, 300, 50);
-    }
+
 
     public void generarTabla() {
         DefaultTableModel model = new DefaultTableModel();

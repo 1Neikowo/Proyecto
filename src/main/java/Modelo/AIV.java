@@ -72,7 +72,7 @@ public class AIV {
         }
     }
     public void guardarCambios(){
-        gestorArchivo.guardarCambios(listaDePlantas);
+        gestorArchivo.guardarCambios(this.listaDePlantas);
     }
 
     public void obtenerUltimoID(){
