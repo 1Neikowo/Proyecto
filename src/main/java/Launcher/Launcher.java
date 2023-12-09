@@ -18,6 +18,7 @@ public class Launcher {
         for(Planta planta: plantas){
             System.out.println(planta.toString());
         }
+        
         aiv.guardarCambios();
 
     }

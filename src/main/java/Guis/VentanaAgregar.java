@@ -126,7 +126,7 @@ public class VentanaAgregar extends VentanaBase {
         btAceptar.addActionListener(this);
     }
     public Planta crearPlanta() {
-        String especie = especieTextField.getText();
+        String especie = (especieTextField.getText()).toLowerCase();
         String clasificacion = listaClasificaciones.getSelectedItem().toString();
         String tamano = listaTamanos.getSelectedItem().toString();
         String ambiente = listaAmbientes.getSelectedItem().toString();
@@ -154,7 +154,7 @@ public class VentanaAgregar extends VentanaBase {
             if (!validacionCampos()){
                 Planta planta = crearPlanta();
                 aiv.agregarPlantaNueva(planta);
-                aiv.guardarCambios();
+                //aiv.guardarCambios();
                 JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
                 cantidadTextField.setText("");
                 precioTextField.setText("");

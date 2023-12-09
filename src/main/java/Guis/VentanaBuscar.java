@@ -86,11 +86,18 @@ public class VentanaBuscar extends VentanaBase {
         }
         if (event.getSource() == btAceptar) {
             if (!validacionCampos()) {
-                AIV aiv = new AIV();
-                Planta plantaHallada = aiv.buscarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
-                JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
-                especieTextField.setText("");
-                idTextField.setText("");
+                if(aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))){
+                    AIV aiv = new AIV();
+                    Planta plantaHallada = aiv.buscarPlanta((especieTextField.getText()).toLowerCase(), Integer.parseInt(idTextField.getText()));
+                    JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
+                    especieTextField.setText("");
+                    idTextField.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
+                    especieTextField.setText("");
+                    idTextField.setText("");
+                }
+
 
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);

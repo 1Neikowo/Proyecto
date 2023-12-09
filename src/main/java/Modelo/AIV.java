@@ -47,8 +47,6 @@ public class AIV {
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.remove(i);
-
-                return;
             }
         }
     }
