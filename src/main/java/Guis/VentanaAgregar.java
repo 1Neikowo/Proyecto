@@ -58,7 +58,7 @@ public class VentanaAgregar extends VentanaBase {
             @Override
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter)) {
+                if (!Character.isDigit(caracter) || (caracter == '0' && precioTextField.getText().isEmpty())) {
                     e.consume();
                 }
             }
@@ -79,7 +79,7 @@ public class VentanaAgregar extends VentanaBase {
             @Override
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter)) {
+                if (!Character.isDigit(caracter) || (caracter == '0' && precioTextField.getText().isEmpty())) {
                     e.consume();
                 }
             }
@@ -152,16 +152,21 @@ public class VentanaAgregar extends VentanaBase {
         }
         if(event.getSource() == btAceptar){
             if (!validacionCampos()){
+                String especie = (especieTextField.getText().toLowerCase());
+                if(aiv.existePlantaNombre(especie)){
+                    JOptionPane.showMessageDialog(this, "La planta ya existe", "Planta existente", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
                 Planta planta = crearPlanta();
                 aiv.agregarPlantaNueva(planta);
-                //aiv.guardarCambios();
+                aiv.obtenerUltimoID();
                 JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
                 cantidadTextField.setText("");
                 precioTextField.setText("");
                 especieTextField.setText("");
                 listaAmbientes.setSelectedItem(null);
                 listaClasificaciones.setSelectedItem(null);
-                listaTamanos.setSelectedItem(null);
+                listaTamanos.setSelectedItem(null);}
             }else{
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 

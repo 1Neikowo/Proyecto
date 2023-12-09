@@ -32,6 +32,24 @@ public class AIV {
         }
         return false;
     }
+    //Metodo para verificar si existe una planta por nombre
+    public boolean existePlantaNombre(String especie) {
+        for (Planta planta : listaDePlantas) {
+            if (planta.getNombre().equalsIgnoreCase(especie)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //Metodo para verificar si existe una planta por id
+    public boolean existePlantaid(int id) {
+        for (Planta planta : listaDePlantas) {
+            if (planta.getId()== id)
+                return true;
+            }
+        return false;
+    }
+
     //Metodo para modificar la cantidad de una planta
     public void  modificarCantidadPlanta(String nombre, int id, int cantidad) throws IOException {
         obtenerPlantas();

@@ -68,7 +68,7 @@ public class VentanaModificar extends VentanaBase{
             @Override
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter)) {
+                if (!Character.isDigit(caracter) || (caracter == '0' && cantidadTextField.getText().isEmpty())){
                     e.consume();
                 }
             }
