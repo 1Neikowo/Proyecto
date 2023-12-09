@@ -27,6 +27,7 @@ public class AIV {
     //Metodo para agregar una planta nueva
     public void agregarPlantaNueva(Planta planta) {
         listaDePlantas.add(planta);
+        guardarCambios();
     }
 
     //Metodo para verificar si existe una planta
@@ -45,6 +46,7 @@ public class AIV {
         for (int i = 0; i < listaDePlantas.size(); i++) {
             if (listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId() == id) {
                 listaDePlantas.get(i).setCantidad(cantidad);
+                guardarCambios();
             }
         }
     }
@@ -55,6 +57,7 @@ public class AIV {
         for (int i = 0; i < listaDePlantas.size(); i++) {
             if (listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId() == id) {
                 listaDePlantas.remove(i);
+                guardarCambios();
             }
         }
     }
@@ -75,6 +78,7 @@ public class AIV {
         for (int i = 0; i < listaDePlantas.size(); i++) {
             if (listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre)) {
                 listaDePlantas.set(i, nuevaPlanta);
+                guardarCambios();
                 return;
             }
         }

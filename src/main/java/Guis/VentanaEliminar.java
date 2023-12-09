@@ -5,14 +5,15 @@ import Modelo.AIV;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class VentanaEliminar extends VentanaBase{
+public class VentanaEliminar extends VentanaBase {
     private JTextField especieTextField;
     private JTextField idTextField;
     private JButton btAceptar;
     private AIV aiv;
     private JButton btVolver;
-    public VentanaEliminar(AIV aiv){
-        super("Eliminar Planta",500,520);
+
+    public VentanaEliminar(AIV aiv) {
+        super("Eliminar Planta", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
         this.addWindowListener(new WindowAdapter() {
@@ -22,12 +23,14 @@ public class VentanaEliminar extends VentanaBase{
                 if (confirm == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
                     System.exit(0);
+                } else {
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
 
-    public void generarElementosVentana(){
+    public void generarElementosVentana() {
         generarEncabezado();
         generarEspecieTextField();
         generarIdTextField();
@@ -37,14 +40,16 @@ public class VentanaEliminar extends VentanaBase{
 
     public void generarEncabezado() {
         String encabezado = "Eliminar Planta";
-        super.generarJLabelEncabezado(encabezado,150,20,300,50);
+        super.generarJLabelEncabezado(encabezado, 150, 20, 300, 50);
     }
+
     private void generarEspecieTextField() {
         String textoNombre = "Especie:";
         super.generarJLabel(textoNombre, 20, 100, 150, 20);
         especieTextField = super.generarTextField(200, 100, 250, 20);
         this.add(especieTextField);
     }
+
     private void generarIdTextField() {
         String textoNombre = "ID:";
         super.generarJLabel(textoNombre, 20, 150, 150, 20);
@@ -57,9 +62,11 @@ public class VentanaEliminar extends VentanaBase{
                     e.consume();
                 }
             }
+
             @Override
             public void keyPressed(KeyEvent e) {
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
             }
@@ -68,46 +75,42 @@ public class VentanaEliminar extends VentanaBase{
         this.add(idTextField);
         idTextField.addActionListener(this);
     }
+
     public void generarBotonVolver() {
         btVolver = generarBotonPrincipal("Volver", 100, 430, 100, 30);
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
+
     public void generarBotonAceptar() {
         btAceptar = generarBotonPrincipal("Aceptar", 290, 430, 100, 30);
         this.add(btAceptar);
         btAceptar.addActionListener(this);
     }
+
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == btVolver){
+        if (event.getSource() == btVolver) {
             new VentanaMenuPrincipal(aiv);
             this.dispose();
         }
-        if(event.getSource() == btAceptar){
-            if (especieTextField.getText().isEmpty() || idTextField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-            }else{
-                if (!validacionCampos()) {
-                    if(aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))){
-                        aiv.eliminarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
-                        JOptionPane.showMessageDialog(this, "La planta ha sido eliminada", "Planta eliminada", JOptionPane.INFORMATION_MESSAGE);
-                        especieTextField.setText("");
-                        idTextField.setText("");
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
-                        especieTextField.setText("");
-                        idTextField.setText("");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-
+        if (event.getSource() == btAceptar) {
+            if (!validacionCampos()) {
+                if (aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
+                    aiv.eliminarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
+                    JOptionPane.showMessageDialog(this, "La planta ha sido eliminada", "Planta eliminada", JOptionPane.INFORMATION_MESSAGE);
+                    especieTextField.setText("");
+                    idTextField.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
+                    especieTextField.setText("");
+                    idTextField.setText("");
                 }
-
-
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
+
     public boolean validacionCampos() {
         return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty();
     }
