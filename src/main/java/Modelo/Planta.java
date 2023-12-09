@@ -64,4 +64,5 @@ public class Planta {
         return  id+","+nombre +","+ clasificacion +","+ tamano +","+ ambiente +","+ precio+","+cantidad;
 
     }
+    public String mostrar
 }

@@ -1,0 +1,1 @@
+1,tulipan,flor,mediano,exterior,1000,10

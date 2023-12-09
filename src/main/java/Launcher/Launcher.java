@@ -13,6 +13,10 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         AIV aiv = new AIV();
         aiv.obtenerPlantas();
+        ArrayList<Planta> plantas=aiv.obtenerListaDePlantas();
+        for(Planta planta: plantas){
+            System.out.println(planta.toString());
+        }
         SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
         aiv.guardarCambios();
     }

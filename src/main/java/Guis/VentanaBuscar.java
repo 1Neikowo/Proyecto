@@ -1,42 +1,46 @@
 package Guis;
 
 import Modelo.AIV;
-
+import Modelo.Planta;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class VentanaBuscar extends VentanaBase{
+public class VentanaBuscar extends VentanaBase {
     private JTextField especieTextField;
     private JTextField idTextField;
     private JButton btAceptar;
     private JButton btVolver;
     private AIV aiv;
 
-    public VentanaBuscar(AIV aiv ){
-        super("Buscar Planta",500,520);
+    public VentanaBuscar(AIV aiv) {
+        super("Buscar Planta", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
 
     }
-    public void generarElementosVentana(){
+
+    public void generarElementosVentana() {
         generarEncabezado();
         generarEspecieTextField();
         generarIdTextField();
         generarBotonAceptar();
         generarBotonVolver();
     }
+
     public void generarEncabezado() {
         String encabezado = "Buscar Planta";
-        super.generarJLabelEncabezado(encabezado,150,20,300,50);
+        super.generarJLabelEncabezado(encabezado, 150, 20, 300, 50);
     }
+
     private void generarEspecieTextField() {
         String textoNombre = "Especie:";
         super.generarJLabel(textoNombre, 20, 100, 150, 20);
         especieTextField = super.generarTextField(200, 100, 250, 20);
         this.add(especieTextField);
     }
+
     private void generarIdTextField() {
         String textoNombre = "ID:";
         super.generarJLabel(textoNombre, 20, 150, 150, 20);
@@ -49,9 +53,11 @@ public class VentanaBuscar extends VentanaBase{
                     e.consume();
                 }
             }
+
             @Override
             public void keyPressed(KeyEvent e) {
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
             }
@@ -60,27 +66,36 @@ public class VentanaBuscar extends VentanaBase{
         this.add(idTextField);
         idTextField.addActionListener(this);
     }
+
     public void generarBotonVolver() {
         btVolver = generarBotonPrincipal("Volver", 100, 430, 100, 30);
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
+
     public void generarBotonAceptar() {
         btAceptar = generarBotonPrincipal("Aceptar", 290, 430, 100, 30);
         this.add(btAceptar);
         btAceptar.addActionListener(this);
     }
+
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == btVolver){
+        if (event.getSource() == btVolver) {
             new VentanaMenuPrincipal(aiv);
             this.dispose();
         }
-        if(event.getSource() == btAceptar){
-            if (especieTextField.getText().isEmpty() || idTextField.getText().isEmpty()) {
+        if (event.getSource() == btAceptar) {
+            if (!validacionCampos()) {
+                AIV aiv = new AIV();
+                Planta plantaHallada = aiv.buscarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
+                JOptionPane.showMessageDialog(this, plantaHallada.toString(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-            }else{
-
             }
         }
+    }
+
+    public boolean validacionCampos() {
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty();
     }
 }
