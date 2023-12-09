@@ -27,20 +27,20 @@ public class GestorPlantasArchivo {
             e.printStackTrace();
         }
     }
-    public void agregarPlantaArchivo(Planta planta) {
+   /* public void agregarPlantaArchivo(Planta planta) {
         boolean existeArchivo = existeArchivoPlantas();
         if (existeArchivo) {
             agregarPlantaArchivoExiste(planta);
         } else {
 
         }
-    }
+    }*/
 
 
     //Metodo para agregar una planta a un archivo existente
     //Funcionamiento FileWriter: Dado que el archivo existe, se agregara la informacion en la última fila, sin sobreescribir la preexistente dado el boolean entregado.
     //FileWriter segundo parametro boolean: true para agregar la informacion al final del archivo, false para sobreescribir el archivo.
-    public void agregarPlantaArchivoExiste(Planta planta){
+   /* public void agregarPlantaArchivoExiste(Planta planta){
         try {
             //Agregar planta a un archivo existente
             BufferedWriter writer = new BufferedWriter(new FileWriter(rutaPlantas, true));
@@ -50,7 +50,7 @@ public class GestorPlantasArchivo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public boolean existeArchivoPlantas() {
         //Se verifica si existe el archivo con el nombre "nombreArchivo"

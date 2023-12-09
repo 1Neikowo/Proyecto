@@ -23,7 +23,6 @@ public class AIV {
     //Metodo para agregar una planta nueva
     public void agregarPlantaNueva(Planta planta) {
         listaDePlantas.add(planta);
-        gestorArchivo.agregarPlantaArchivo(planta);
     }
     //Metodo para verificar si existe una planta
     public boolean existeplanta(String nombre, int id) {
@@ -39,8 +38,6 @@ public class AIV {
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.get(i).setCantidad(cantidad);
-                gestorArchivo.guardarCambios(listaDePlantas);
-                return;
             }
         }
     }
@@ -50,7 +47,7 @@ public class AIV {
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.remove(i);
-                gestorArchivo.guardarCambios(listaDePlantas);
+
                 return;
             }
         }

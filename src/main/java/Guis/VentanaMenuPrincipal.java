@@ -106,6 +106,8 @@ public class VentanaMenuPrincipal extends VentanaBase {
         }
 
         if (event.getSource() == btMostrar) {
+            new VentanaMostrar(aiv);
+            this.dispose();
         }
 
         if (event.getSource() == btVolver) {

@@ -64,5 +64,7 @@ public class Planta {
         return  id+","+nombre +","+ clasificacion +","+ tamano +","+ ambiente +","+ precio+","+cantidad;
 
     }
-    public String mostrar
+    public String mostrar(){
+        return "ID: "+id+"\nNombre: "+nombre+"\nClasificacion: "+clasificacion+"\nTamaño: "+tamano+"\nAmbiente: "+ambiente+"\nPrecio: "+precio+"\nCantidad: "+cantidad;
+    }
 }

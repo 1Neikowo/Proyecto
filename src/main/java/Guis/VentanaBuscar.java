@@ -88,7 +88,8 @@ public class VentanaBuscar extends VentanaBase {
             if (!validacionCampos()) {
                 AIV aiv = new AIV();
                 Planta plantaHallada = aiv.buscarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
-                JOptionPane.showMessageDialog(this, plantaHallada.toString(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
+
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }

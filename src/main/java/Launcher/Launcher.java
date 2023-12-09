@@ -1,8 +1,7 @@
 package Launcher;
 import javax.swing.*;
 import java.awt.*;
-
-
+import Guis.VentanaMostrar;
 import Modelo.AIV;
 import Modelo.Planta;
 import Guis.VentanaLogin;
@@ -17,7 +16,8 @@ public class Launcher {
         for(Planta planta: plantas){
             System.out.println(planta.toString());
         }
-        SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
+        SwingUtilities.invokeLater(() -> new VentanaMostrar(aiv));
         aiv.guardarCambios();
+
     }
 }
