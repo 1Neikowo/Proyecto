@@ -11,92 +11,138 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class GestorPlantasArchivo {
-    private String nombreArchivo;
+    private String rutaPlantas;
+    private String rutaID;
 
     public GestorPlantasArchivo() {
-        this.nombreArchivo = "src/main/java/Datos/plantas.txt";
+        this.rutaPlantas = "src/main/java/Datos/plantas.txt";
+        this.rutaID = "src/main/java/Datos/id.txt";
     }
 
-    public boolean existeArchivo() {
+    public void guardarUltimoID(String id) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaID, false))) {
+            bw.write(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String leerUltimoID() {
+        if(existeArchivoID()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(rutaID))) {
+                return br.readLine(); // Retorna la línea leída
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null; // En caso de error, retorna null
+            }
+        }else{
+            createArchivoID();
+            guardarUltimoID("0");
+            return leerUltimoID();
+        }
+    }
+    public void createArchivoID() {
+        File f = new File(rutaID);
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean existeArchivoID() {
         //Se verifica si existe el archivo con el nombre "nombreArchivo"
-        File file = new File(nombreArchivo);
+        File file = new File(rutaID);
         return file.exists();
     }
-    /*
-    public void agregarPlantaArchivo(Planta planta) throws IOException {
-        boolean existeArchivo = existeArchivo();
-        if (existeArchivo) {
-            agregarPlantaArchivoExiste(planta);
-        } else {
-            agregarPlantaArchivoNoExiste(planta);
-        }
-        }
+    public boolean existeArchivoPlantas() {
+        //Se verifica si existe el archivo con el nombre "nombreArchivo"
+        File file = new File(rutaPlantas);
+        return file.exists();
+    }
 
-
-    //Metodo para agregar una planta a un archivo existente
-    //Funcionamiento FileWriter: Dado que el archivo existe, se agregara la informacion en la última fila, sin sobreescribir la preexistente dado el boolean entregado.
-    //FileWriter segundo parametro boolean: true para agregar la informacion al final del archivo, false para sobreescribir el archivo.
-    public void agregarPlantaArchivoExiste(Planta planta) throws IOException{
+    public void createArchivoPlantas() {
+        File f = new File(rutaPlantas);
         try {
-            //Agregar planta a un archivo existente
-            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo, true));
-            writer.write(planta.toString());
-            writer.newLine();
-            writer.close();
+            f.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //Metodo para agregar una planta a un archivo no existente
-    //Funcionamiento FileWriter: Dado que el archivo no existe, se creara un archivo nuevo y se agregara la informacion en la primera fila
-    public void agregarPlantaArchivoNoExiste(Planta planta) throws IOException{
-        try {
-            //Crear un archivo y agregar planta
-            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo,false));
-            writer.write(planta.toString());
-            writer.newLine();
-            System.out.println("Modelo.Planta añadida con exito");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
-    public ArrayList<Planta> obtenerPlantasArchivo(){
-        //Se obitiene el arreglo de plantas que se almacenó en el arhivo de texto
-        ArrayList<Planta> plantas = new ArrayList<>();
-        if (existeArchivo()){
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo));
+    public boolean archivoPlantasVacio() {
+        File archivo = new File(rutaPlantas);
+        if (archivo.length() > 0) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
                 String linea = reader.readLine();
-                while (linea != null){
-                    String[] datos = linea.split(",");
-                    Planta planta = new Planta(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],Integer.parseInt(datos[5]),Integer.parseInt(datos[6]));
-                    plantas.add(planta);
+                while (linea != null) {
+                    // Verificar si la línea contiene datos válidos
+                    if (!linea.trim().isEmpty()) {
+                        // Si encontramos al menos una línea con datos, el archivo no está vacío
+                        return false;
+                    }
                     linea = reader.readLine();
                 }
-                reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        // Si no se encuentra ninguna línea con datos válidos, consideramos el archivo como vacío
+        return true;
+    }
+    //Se obtienen las plantas almacenadas en el archivo de texto
+//Si el archivo EXISTE, se procede a la lectura con normalidad
+//Si el archivo NO EXISTE, se crea un archivo nuevo y se vuelve a intentar la lectura
+    public ArrayList<Planta> obtenerPlantasArchivo() {
+        ArrayList<Planta> plantas = new ArrayList<>();
+
+        if (existeArchivoPlantas()) {
+            //Si el archivo estaba vacío, se retorna un arreglo vacío
+
+            if (!archivoPlantasVacio()) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(rutaPlantas));
+                    String linea = reader.readLine();
+                    while (linea != null) {
+                        String[] datos = linea.split(",");
+                        Planta planta = new Planta(Integer.parseInt(datos[0]), datos[1], datos[2], datos[3], datos[4], Integer.parseInt(datos[5]), Integer.parseInt(datos[6]));
+                        plantas.add(planta);
+                        linea = reader.readLine();
+                    }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return plantas;
+            }
+
+        } else {
+            createArchivoPlantas();
+            return obtenerPlantasArchivo();
+        }
+
         return plantas;
     }
 
+
+    //Metodo encargado de guardar en el archivo los cambios realizados en listaDePlantas
     public void guardarCambios(ArrayList<Planta> plantas) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo, false))) {
-            for (Planta persona : plantas) {
-                bw.write(persona.toString());
+        /// if (existeArchivoPlantas()) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
+            for (Planta planta : plantas) {
+                bw.write(planta.toString());
                 bw.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //} else {
+        //  createArchivoPlantas();
+        //  guardarCambios(plantas);
+        //}
+
     }
-
-
 
 
 }
