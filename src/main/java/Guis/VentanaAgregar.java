@@ -25,9 +25,6 @@ public class VentanaAgregar extends VentanaBase {
         super("Agregar Plantas", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
-        agregarListenerCerrarVentana();
-    }
-    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -35,10 +32,13 @@ public class VentanaAgregar extends VentanaBase {
                 if (confirm == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
                     System.exit(0);
+                } else {
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
+
     public void generarElementosVentana() {
         generarEncabezado();
         generarEspecieTextField();
@@ -93,7 +93,6 @@ public class VentanaAgregar extends VentanaBase {
             e.consume();
         }
     }
-
     public void generarListaTamanos() {
         super.generarJLabel("Tamaño:", 20, 250, 150, 20);
         listaTamanos = super.generarListaDesplegable(Tamaño.values(), 200, 250, 250, 20);

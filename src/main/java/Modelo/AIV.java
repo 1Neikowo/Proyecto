@@ -25,7 +25,7 @@ public class AIV {
         listaDePlantas.add(planta);
         guardarCambios();
     }
-    //Metodo para verificar si existe una planta
+    //Metodo para verificar si existe una planta por nombre e id
     public boolean existeplanta(String nombre, int id) {
         for (int i = 0; i < listaDePlantas.size(); i++) {
             if (listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId() == id) {
@@ -34,7 +34,8 @@ public class AIV {
         return false;
     }
     //Metodo para verificar si existe una planta por nombre
-    public boolean existePlantaNombre(String especie) {
+    @Override
+    public boolean existePlanta(String especie) {
         for (Planta planta : listaDePlantas) {
             if (planta.getNombre().equalsIgnoreCase(especie)) {
                 return true;
@@ -43,7 +44,7 @@ public class AIV {
         return false;
     }
     //Metodo para verificar si existe una planta por id
-    public boolean existePlantaid(int id) {
+    public boolean existePlanta(int id) {
         for (Planta planta : listaDePlantas) {
             if (planta.getId()== id)
                 return true;
@@ -53,7 +54,6 @@ public class AIV {
 
     //Metodo para modificar la cantidad de una planta
     public void  modificarCantidadPlanta(String nombre, int id, int cantidad)  {
-        obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.get(i).setCantidad(cantidad);
@@ -63,7 +63,6 @@ public class AIV {
     }
     //Metodo para eliminar una planta
     public void eliminarPlanta(String nombre, int id){
-        obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 listaDePlantas.remove(i);
@@ -73,7 +72,6 @@ public class AIV {
     }
     //Metodo para buscar una planta
     public Planta buscarPlanta(String nombre,int id){
-        obtenerPlantas();
         for(int i = 0; i < listaDePlantas.size(); i++){
             if(listaDePlantas.get(i).getNombre().equalsIgnoreCase(nombre) && listaDePlantas.get(i).getId()==id){
                 return listaDePlantas.get(i);
