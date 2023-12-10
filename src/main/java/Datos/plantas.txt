@@ -1,3 +1,4 @@
 1,rosa,Arbol,Pequeño,Exterior,1,1
 2,odnfwe,Flor,Mediano,Exterior,232,22
 3,3,Arbusto,Mediano,Exterior,3,3
+4,hgjghj,Arbusto,Mediano,Exterior,3434,3434

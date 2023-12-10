@@ -26,8 +26,7 @@ public class VentanaLogin extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-
-    private void agregarListenerCerrarVentana() {
+    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -39,7 +38,6 @@ public class VentanaLogin extends VentanaBase {
             }
         });
     }
-
     public void generarElementosVentana() {
         generarTitulo();
         generarPasswordField();
@@ -48,40 +46,50 @@ public class VentanaLogin extends VentanaBase {
         generarLabelPasswordProv();
         generarBotonMostrarOcultar();
     }
+    public void agregarImagenDeFondo() {
+        // Cambia la ruta de la imagen según la ubicación de tu archivo de imagen
+        ImageIcon imagenDeFondo = new ImageIcon("src/main/resources/images/fondo1.png");
 
+        // Crea un JLabel con la imagen de fondo
+        JLabel fondo = new JLabel(imagenDeFondo);
+        fondo.setBounds(0, -30, getWidth(), getHeight());
+
+        // Asegúrate de que el fondo esté detrás de otros componentes
+        getLayeredPane().add(fondo, Integer.valueOf(Integer.MIN_VALUE));
+
+        // Establece el contenido de la ventana como transparente
+        ((JPanel) getContentPane()).setOpaque(false);
+    }
     public void generarTitulo() {
         String textoTitulo = "Bienvenido a AIV";
         String textoSubtitulo = "Ingresa tus datos para comenzar";
-        super.generarJLabelEncabezado(textoTitulo, 125, 40, 300, 50);
-        super.generarJLabel(textoSubtitulo, 125, 80, 300, 50);
+        super.generarJLabelEncabezado(textoTitulo, 125,40,300,50);
+        super.generarJLabel(textoSubtitulo, 125,80,300,50);
     }
-
-    public void generarLabelPasswordProv() {
+    public void generarLabelPasswordProv(){
         String textoNombre = "Contraseña Predeterminada: 123";
         super.generarJLabel(textoNombre, 125, 140, 250, 20);
     }
-
-    public void generarPasswordField() {
+    public void generarPasswordField(){
         String textoNombre = "Password:";
         super.generarJLabel(textoNombre, 125, 180, 150, 20);
         passwordField = super.generarJPasswordField(125, 210, 250, 20);
         this.add(passwordField);
     }
-
-    public void generarBotonIngresar() {
-        btIngresar = super.generarBotonPrincipal("Ingresar", 275, 240, 100, 30);
+    public void generarBotonIngresar(){
+        btIngresar = generarBotonPrincipal("Ingresar", 275, 250, 100, 30);
         this.add(btIngresar);
         btIngresar.addActionListener(this);
     }
     public ImageIcon redimensionImagen(){
-        ImageIcon icon = new ImageIcon("src/main/java/Utils/ojoabierto.jpg");
+        ImageIcon icon = new ImageIcon("src/main/resources/images/ojo.jpg");
         Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(50, 30, java.awt.Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         ImageIcon newicon = new ImageIcon(newImage);
         return newicon;
     }
     public void generarBotonMostrarOcultar() {
-        btMostrarOcultar = super.generarBotonPrincipal("Mostrar/ocultar", 75, 210, 40, 30);
+        btMostrarOcultar = super.generarBotonPrincipal("", 390, 207, 40, 25);
         ImageIcon icono = redimensionImagen();
         btMostrarOcultar.setIcon(icono);
         this.add(btMostrarOcultar);
@@ -89,11 +97,10 @@ public class VentanaLogin extends VentanaBase {
     }
 
     public void generarBotonVolver() {
-        btVolver = super.generarBotonPrincipal("Salir", 200, 425, 100, 30);
+        btVolver = generarBotonPrincipal("Salir", 200, 425, 100, 30);
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
-
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == btMostrarOcultar) {
             if (oculto) {
@@ -104,7 +111,7 @@ public class VentanaLogin extends VentanaBase {
                 oculto = true;
             }
         }
-        if (event.getSource() == btVolver) {
+        if (event.getSource() == btVolver){
             JOptionPane.showMessageDialog(this, "Hasta Luego! 😉");
             this.dispose();
         }
@@ -113,7 +120,6 @@ public class VentanaLogin extends VentanaBase {
         }
 
     }
-
     private void procesarIngresar() {
         if (passwordField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
@@ -121,7 +127,6 @@ public class VentanaLogin extends VentanaBase {
             autenticarAdmin();
         }
     }
-
     private void autenticarAdmin() {
         GestorAdminArchivo gestorPass = new GestorAdminArchivo();
         if (gestorPass.getAdmin().autenticar(passwordField.getText())) {
