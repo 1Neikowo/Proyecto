@@ -177,7 +177,7 @@ public class VentanaAgregar extends VentanaBase {
         if (event.getSource() == btAceptar) {
             if (!validacionCampos()) {
                 String especie = (especieTextField.getText().toLowerCase());
-                if (aiv.existePlantaNombre(especie)) {
+                if (aiv.existePlanta(especie)) {
                     JOptionPane.showMessageDialog(this, "La planta ya existe", "Planta existente", JOptionPane.WARNING_MESSAGE);
                 } else {
                     aiv.guardarUltimoID();
