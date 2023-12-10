@@ -177,9 +177,9 @@ public class VentanaAgregar extends VentanaBase {
         }
     }
     private void agregarNuevaPlanta() {
-        aiv.guardarUltimoID();
         Planta planta = crearPlanta();
         aiv.agregarPlantaNueva(planta);
+        aiv.guardarUltimoID();
         JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
         limpiarCampos();
     }
