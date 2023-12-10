@@ -18,15 +18,15 @@ public class VentanaBuscar extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-    private void agregarListenerCerrarVentana(){
+    private void agregarListenerCerrarVentana() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
                     System.exit(0);
-                }else{
+                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }

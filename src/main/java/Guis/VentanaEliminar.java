@@ -18,22 +18,22 @@ public class VentanaEliminar extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-    private void agregarListenerCerrarVentana(){
+    private void agregarListenerCerrarVentana() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
                     System.exit(0);
-                }else{
+                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
 
-    public void generarElementosVentana() {
+    private void generarElementosVentana() {
         generarEncabezado();
         generarEspecieTextField();
         generarIdTextField();
@@ -41,7 +41,7 @@ public class VentanaEliminar extends VentanaBase {
         generarBotonVolver();
     }
 
-    public void generarEncabezado() {
+    private void generarEncabezado() {
         String encabezado = "Eliminar Planta";
         super.generarJLabelEncabezado(encabezado, 150, 20, 300, 50);
     }
@@ -77,13 +77,13 @@ public class VentanaEliminar extends VentanaBase {
         }
     }
 
-    public void generarBotonVolver() {
+    private void generarBotonVolver() {
         btVolver = generarBotonPrincipal("Volver", 100, 430, 100, 30);
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
 
-    public void generarBotonAceptar() {
+    private void generarBotonAceptar() {
         btAceptar = generarBotonPrincipal("Aceptar", 290, 430, 100, 30);
         this.add(btAceptar);
         btAceptar.addActionListener(this);
@@ -121,7 +121,7 @@ public class VentanaEliminar extends VentanaBase {
         idTextField.setText("");
     }
 
-    public boolean validacionCampos() {
+    private boolean validacionCampos() {
         return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty();
     }
 }
