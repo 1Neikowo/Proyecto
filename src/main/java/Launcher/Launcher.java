@@ -10,7 +10,7 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         AIV aiv = new AIV();
         ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
-        SwingUtilities.invokeLater(() -> new VentanaMenuBienvenida(aiv));
+        SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
         for(Planta plant : plantas){
             System.out.println(plant.toString());
 
