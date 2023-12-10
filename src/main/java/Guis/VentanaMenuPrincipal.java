@@ -24,6 +24,16 @@ public class VentanaMenuPrincipal extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
+    private void generarElementosVentana() {
+        generarEncabezado();
+        generarBotonAgregar();
+        generarBotonEliminar();
+        generarBotonModificar();
+        generarBotonBuscar();
+        generarBotonMostrar();
+        generarBotonVolver();
+        generarBotonCambiarPass();
+    }
     private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -38,18 +48,6 @@ public class VentanaMenuPrincipal extends VentanaBase {
             }
         });
     }
-
-    private void generarElementosVentana() {
-        generarEncabezado();
-        generarBotonAgregar();
-        generarBotonEliminar();
-        generarBotonModificar();
-        generarBotonBuscar();
-        generarBotonMostrar();
-        generarBotonVolver();
-        generarBotonCambiarPass();
-    }
-
     public void generarEncabezado() {
         String encabezado = "¿Qué deseas realizar?";
         super.generarJLabelEncabezado(encabezado, 100, 20, 300, 50);
@@ -96,9 +94,6 @@ public class VentanaMenuPrincipal extends VentanaBase {
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
-
-
-
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == btAgregar) {

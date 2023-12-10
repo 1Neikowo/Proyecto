@@ -108,10 +108,7 @@ public class VentanaModificar extends VentanaBase{
             procesarAceptarResultado();
         }
     }
-    private boolean validacionCampos(){
-        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
 
-    }
     private void procesarAceptarResultado() {
         if (!aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
             JOptionPane.showMessageDialog(this,"La planta buscada no existe","Planta no hallada",JOptionPane.WARNING_MESSAGE);
@@ -133,6 +130,10 @@ public class VentanaModificar extends VentanaBase{
         especieTextField.setText("");
         idTextField.setText("");
         cantidadTextField.setText("");
+    }
+    private boolean validacionCampos(){
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
+
     }
 
 }

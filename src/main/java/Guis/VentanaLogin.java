@@ -26,6 +26,14 @@ public class VentanaLogin extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
+    public void generarElementosVentana() {
+        generarTitulo();
+        generarPasswordField();
+        generarBotonVolver();
+        generarBotonIngresar();
+        generarLabelPasswordProv();
+        generarBotonMostrarOcultar();
+    }
     private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -40,14 +48,6 @@ public class VentanaLogin extends VentanaBase {
             }
         });
     }
-    public void generarElementosVentana() {
-        generarTitulo();
-        generarPasswordField();
-        generarBotonVolver();
-        generarBotonIngresar();
-        generarLabelPasswordProv();
-        generarBotonMostrarOcultar();
-    }
     public void agregarImagenDeFondo() {
         // Cambia la ruta de la imagen según la ubicación de tu archivo de imagen
         ImageIcon imagenDeFondo = new ImageIcon("src/main/resources/images/fondo1.png");
@@ -61,6 +61,13 @@ public class VentanaLogin extends VentanaBase {
 
         // Establece el contenido de la ventana como transparente
         ((JPanel) getContentPane()).setOpaque(false);
+    }
+    public ImageIcon redimensionImagen(){
+        ImageIcon icon = new ImageIcon("src/main/resources/images/ojo.jpg");
+        Image image = icon.getImage();
+        Image newImage = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newicon = new ImageIcon(newImage);
+        return newicon;
     }
     public void generarTitulo() {
         String textoTitulo = "Bienvenido a AIV";
@@ -83,13 +90,7 @@ public class VentanaLogin extends VentanaBase {
         this.add(btIngresar);
         btIngresar.addActionListener(this);
     }
-    public ImageIcon redimensionImagen(){
-        ImageIcon icon = new ImageIcon("src/main/resources/images/ojo.jpg");
-        Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newicon = new ImageIcon(newImage);
-        return newicon;
-    }
+
     public void generarBotonMostrarOcultar() {
         btMostrarOcultar = super.generarBotonPrincipal("", 390, 207, 40, 25);
         ImageIcon icono = redimensionImagen();
