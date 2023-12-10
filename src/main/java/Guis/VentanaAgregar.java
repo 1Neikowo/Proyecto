@@ -25,6 +25,9 @@ public class VentanaAgregar extends VentanaBase {
         super("Agregar Plantas", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -32,13 +35,10 @@ public class VentanaAgregar extends VentanaBase {
                 if (confirm == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
                     System.exit(0);
-                } else {
-                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
-
     public void generarElementosVentana() {
         generarEncabezado();
         generarEspecieTextField();
@@ -67,23 +67,7 @@ public class VentanaAgregar extends VentanaBase {
         String textoNombre = "Precio:";
         super.generarJLabel(textoNombre, 20, 150, 150, 20);
         precioTextField = super.generarTextField(200, 150, 250, 20);
-        precioTextField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter) || (caracter == '0' && precioTextField.getText().isEmpty())) {
-                    e.consume();
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        agregarKeyListener(precioTextField);
         this.add(precioTextField);
     }
 
@@ -91,25 +75,23 @@ public class VentanaAgregar extends VentanaBase {
         String textoNombre = "Cantidad:";
         super.generarJLabel(textoNombre, 20, 200, 150, 20);
         cantidadTextField = super.generarTextField(200, 200, 250, 20);
-        cantidadTextField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter) || (caracter == '0' && precioTextField.getText().isEmpty())) {
-                    e.consume();
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        agregarKeyListener(cantidadTextField);
         this.add(cantidadTextField);
 
+    }
+    private void agregarKeyListener(JTextField jTextField) {
+        jTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                validarEntradaTeclado(e,jTextField);
+            }
+        });
+    }
+    private void validarEntradaTeclado(KeyEvent e, JTextField jTextField) {
+        char caracter = e.getKeyChar();
+        if (!Character.isDigit(caracter) || (caracter == '0' && jTextField.getText().isEmpty())) {
+            e.consume();
+        }
     }
 
     public void generarListaTamanos() {
@@ -156,8 +138,7 @@ public class VentanaAgregar extends VentanaBase {
         int precio = Integer.parseInt(precioTextField.getText());
         int cantidad = Integer.parseInt(cantidadTextField.getText());
         int id = Integer.parseInt(aiv.leerUltimoIDArchivo()) + 1;
-        Planta planta = new Planta(id, especie, clasificacion, tamano, ambiente, precio, cantidad);
-        return planta;
+        return new Planta(id, especie, clasificacion, tamano, ambiente, precio, cantidad);
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -175,28 +156,38 @@ public class VentanaAgregar extends VentanaBase {
             this.dispose();
         }
         if (event.getSource() == btAceptar) {
-            if (!validacionCampos()) {
-                String especie = (especieTextField.getText().toLowerCase());
-                if (aiv.existePlantaNombre(especie)) {
-                    JOptionPane.showMessageDialog(this, "La planta ya existe", "Planta existente", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    aiv.guardarUltimoID();
-                    Planta planta = crearPlanta();
-                    aiv.agregarPlantaNueva(planta);
-
-                    JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
-                    cantidadTextField.setText("");
-                    precioTextField.setText("");
-                    especieTextField.setText("");
-                    listaAmbientes.setSelectedItem(null);
-                    listaClasificaciones.setSelectedItem(null);
-                    listaTamanos.setSelectedItem(null);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-
-            }
+            procesarAceptar();
         }
+    }
+    private void procesarAceptar() {
+        if (!validacionCampos()) {
+            procesarAgregarNuevaPlanta();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    private void procesarAgregarNuevaPlanta(){
+        String especie = (especieTextField.getText().toLowerCase());
+        if (aiv.existePlantaNombre(especie)) {
+            JOptionPane.showMessageDialog(this, "La planta ya existe", "Planta existente", JOptionPane.WARNING_MESSAGE);
+        }else {
+            agregarNuevaPlanta();
+        }
+    }
+    private void agregarNuevaPlanta() {
+        aiv.guardarUltimoID();
+        Planta planta = crearPlanta();
+        aiv.agregarPlantaNueva(planta);
+        JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
+        limpiarCampos();
+    }
+    private void limpiarCampos() {
+        cantidadTextField.setText("");
+        precioTextField.setText("");
+        especieTextField.setText("");
+        listaAmbientes.setSelectedItem(null);
+        listaClasificaciones.setSelectedItem(null);
+        listaTamanos.setSelectedItem(null);
     }
 
     public boolean validacionCampos() {

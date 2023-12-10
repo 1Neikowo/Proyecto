@@ -23,6 +23,9 @@ public class VentanaMostrar extends VentanaBase {
         this.aiv = aiv;
         this.setLayout(new BorderLayout());
         generarElementosVentana();
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -40,24 +43,40 @@ public class VentanaMostrar extends VentanaBase {
         generarTabla();
     }
 
-
     public void generarTabla() {
+        DefaultTableModel model = crearModeloTabla();
+        llenarModeloConPlantas(model);
+        crearYConfigurarTabla(model);
+    }
+
+    private DefaultTableModel crearModeloTabla() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Clasificacion", "Tamaño", "Ambiente", "Precio", "Cantidad"});
+        return model;
+    }
+
+    private void llenarModeloConPlantas(DefaultTableModel model) {
         aiv.obtenerPlantas();
         ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
         for (Planta planta : plantas) {
             model.addRow(new Object[]{planta.getId(), planta.getNombre(), planta.getClasificacion(), planta.getTamano(), planta.getAmbiente(), planta.getPrecio(), planta.getCantidad()});
         }
-        // Creamos la tabla después de haber creado el modelo
-        table = new JTable(model);
-        table.setPreferredScrollableViewportSize(new Dimension(450, 63));
-        JScrollPane scrollPane = new JScrollPane(table);
+    }
+
+    private void crearYConfigurarTabla(DefaultTableModel model) {
+        JTable nuevaTabla = new JTable(model);
+        nuevaTabla.setPreferredScrollableViewportSize(new Dimension(450, 63));
+        JScrollPane scrollPane = new JScrollPane(nuevaTabla);
+
+        actualizarInterfazUsuario(scrollPane);
+    }
+
+    private void actualizarInterfazUsuario(JScrollPane scrollPane) {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
-        // Actualizamos la interfaz de usuario para mostrar la nueva tabla
         getContentPane().revalidate();
         getContentPane().repaint();
     }
+
 
 
     public void generarBotonVolver() {

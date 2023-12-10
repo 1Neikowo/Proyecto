@@ -111,7 +111,7 @@ public class GestorPlantasArchivo {
             //Si el archivo estaba vacío, se retorna un arreglo vacío
             if (archivoPlantasVacio()) {
                 return plantas;
-            } else {
+            }else {
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(rutaPlantas));
                     String linea = reader.readLine();
@@ -126,7 +126,7 @@ public class GestorPlantasArchivo {
                     e.printStackTrace();
                 }
             }
-        } else {
+        }else {
             createArchivoPlantas();
             return obtenerPlantasArchivo();
         }

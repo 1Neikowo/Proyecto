@@ -16,6 +16,9 @@ public class VentanaEliminar extends VentanaBase {
         super("Eliminar Planta", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -23,8 +26,6 @@ public class VentanaEliminar extends VentanaBase {
                 if (confirm == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
                     System.exit(0);
-                } else {
-                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
             }
         });
@@ -54,26 +55,24 @@ public class VentanaEliminar extends VentanaBase {
         String textoNombre = "ID:";
         super.generarJLabel(textoNombre, 20, 150, 150, 20);
         idTextField = super.generarTextField(200, 150, 250, 20);
-        idTextField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter)) {
-                    e.consume();
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        agregarKeyListener(idTextField);
 
         this.add(idTextField);
         idTextField.addActionListener(this);
+    }
+    private void agregarKeyListener(JTextField jTextField) {
+        jTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                validarEntradaTeclado(e,jTextField);
+            }
+        });
+    }
+    private void validarEntradaTeclado(KeyEvent e, JTextField jTextField) {
+        char caracter = e.getKeyChar();
+        if (!Character.isDigit(caracter) || (caracter == '0' && jTextField.getText().isEmpty())) {
+            e.consume();
+        }
     }
 
     public void generarBotonVolver() {
@@ -94,21 +93,30 @@ public class VentanaEliminar extends VentanaBase {
             this.dispose();
         }
         if (event.getSource() == btAceptar) {
-            if (!validacionCampos()) {
-                if (aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
-                    aiv.eliminarPlanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()));
-                    JOptionPane.showMessageDialog(this, "La planta ha sido eliminada", "Planta eliminada", JOptionPane.INFORMATION_MESSAGE);
-                    especieTextField.setText("");
-                    idTextField.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
-                    especieTextField.setText("");
-                    idTextField.setText("");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-            }
+            procesarAceptar();
         }
+    }
+    private void procesarAceptar() {
+        if (!validacionCampos()) {
+            eliminarPlanta();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    private void eliminarPlanta() {
+        String especie = especieTextField.getText();
+        int id = Integer.parseInt(idTextField.getText());
+        if (aiv.existeplanta(especie, id)) {
+            aiv.eliminarPlanta(especie, id);
+            JOptionPane.showMessageDialog(this, "La planta ha sido eliminada", "Planta eliminada", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "La planta no existe", "Planta no encontrada", JOptionPane.WARNING_MESSAGE);
+        }
+        limpiarCampos();
+    }
+    private void limpiarCampos() {
+        especieTextField.setText("");
+        idTextField.setText("");
     }
 
     public boolean validacionCampos() {

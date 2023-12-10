@@ -20,6 +20,9 @@ public class VentanaLogin extends VentanaBase {
         super("Login", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana(){
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -27,8 +30,6 @@ public class VentanaLogin extends VentanaBase {
                 if (confirm == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
                     System.exit(0);
-                }else{
-                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
             }
         });
@@ -68,24 +69,28 @@ public class VentanaLogin extends VentanaBase {
     }
     public void actionPerformed(ActionEvent event) {
         if(event.getSource() == btIngresar){
-            if (passwordField.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-            }else{
-                GestorAdminArchivo gestorPass = new GestorAdminArchivo();
-                gestorPass.obtenerAdmin();
-                if(gestorPass.getAdmin().autenticar(passwordField.getText())){
-                    new VentanaMenuPrincipal(aiv);
-                    this.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "Contraseña Incorrecta", JOptionPane.WARNING_MESSAGE);
-                }
-
-                }
+            procesarIngresar();
         }
-
         if (event.getSource() == btVolver){
             JOptionPane.showMessageDialog(this, "Hasta Luego! 😉");
             this.dispose();
+        }
+    }
+    private void procesarIngresar() {
+        if (passwordField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese una contraseña", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        } else {
+            autenticarAdmin();
+        }
+    }
+    private void autenticarAdmin() {
+        GestorAdminArchivo gestorPass = new GestorAdminArchivo();
+        if (gestorPass.getAdmin().autenticar(passwordField.getText())) {
+            new VentanaMenuPrincipal(aiv);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "La contraseña ingresada es incorrecta", "Contraseña Incorrecta", JOptionPane.WARNING_MESSAGE);
+            passwordField.setText("");
         }
     }
 }
