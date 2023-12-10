@@ -12,7 +12,7 @@ public class VentanaMenuPrincipal extends VentanaBase {
     private JButton btEliminar;
     private JButton btBuscar;
     private JButton btMostrar;
-    private JButton btModificar;
+    private JButton btModificarStock;
     private JButton btVolver;
     private JButton btCambiarPass;
     private AIV aiv;
@@ -28,7 +28,7 @@ public class VentanaMenuPrincipal extends VentanaBase {
         generarEncabezado();
         generarBotonAgregar();
         generarBotonEliminar();
-        generarBotonModificar();
+        generarBotonModificarStock();
         generarBotonBuscar();
         generarBotonMostrar();
         generarBotonVolver();
@@ -65,10 +65,10 @@ public class VentanaMenuPrincipal extends VentanaBase {
         btEliminar.addActionListener(this);
     }
 
-    private void generarBotonModificar() {
-        btModificar = generarBotonPrincipal("Modificar Cantidad", 175, 220, 150, 35);
-        this.add(btModificar);
-        btModificar.addActionListener(this);
+    private void generarBotonModificarStock() {
+        btModificarStock = generarBotonPrincipal("Modificar Stock", 175, 220, 150, 35);
+        this.add(btModificarStock);
+        btModificarStock.addActionListener(this);
     }
 
     private void generarBotonBuscar() {
@@ -106,7 +106,7 @@ public class VentanaMenuPrincipal extends VentanaBase {
             this.dispose();
         }
 
-        if (event.getSource() == btModificar) {
+        if (event.getSource() == btModificarStock) {
             new VentanaModificar(aiv);
             this.dispose();
         }

@@ -13,7 +13,7 @@ public class VentanaModificar extends VentanaBase{
     private JButton btVolver;
     private AIV aiv;
     public VentanaModificar(AIV aiv){
-        super("Modificar Cantidad Planta",500,520);
+        super("Modificar Stock Planta",500,520);
         this.aiv = aiv;
         generarElementosVentana();
         agregarListenerCerrarVentana();
@@ -41,7 +41,7 @@ public class VentanaModificar extends VentanaBase{
         generarBotonVolver();
     }
     private void generarEncabezado() {
-        String encabezado = "Modificar Cantidad";
+        String encabezado = "Modificar Stock";
         super.generarJLabelEncabezado(encabezado,150,20,300,50);
     }
     private void generarEspecieTextField() {
@@ -59,7 +59,7 @@ public class VentanaModificar extends VentanaBase{
         idTextField.addActionListener(this);
     }
     private void generarCantidadTextField() {
-        String textoNombre = "Cantidad:";
+        String textoNombre = "Nueva cantidad:";
         super.generarJLabel(textoNombre, 20, 200, 150, 20);
         cantidadTextField = super.generarTextField(200, 200, 250, 20);
         agregarKeyListener(cantidadTextField);

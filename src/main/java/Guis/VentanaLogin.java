@@ -86,7 +86,7 @@ public class VentanaLogin extends VentanaBase {
     }
 
     private void generarPasswordField() {
-        String textoNombre = "Password:";
+        String textoNombre = "Contraseña:";
         super.generarJLabel(textoNombre, 125, 250, 150, 20);
         passwordField = super.generarJPasswordField(125, 275, 250, 20);
         this.add(passwordField);
