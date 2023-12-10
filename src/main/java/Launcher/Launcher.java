@@ -12,6 +12,12 @@ public class Launcher {
         aiv.obtenerPlantas();
         ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
         SwingUtilities.invokeLater(() -> new VentanaLogin(aiv));
+        for(Planta plant : plantas){
+            System.out.println(plant.toString());
+        }
+        //Codigo Completo
+        //Para el dia de la presentacion: vaciar plantas.txt, para mostrar cómo funciona el guardado y lectura del ultimo id.
+
 
 
     }

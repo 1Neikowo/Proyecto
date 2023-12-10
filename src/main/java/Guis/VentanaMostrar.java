@@ -44,6 +44,7 @@ public class VentanaMostrar extends VentanaBase {
     public void generarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Clasificacion", "Tamaño", "Ambiente", "Precio", "Cantidad"});
+        aiv.obtenerPlantas();
         ArrayList<Planta> plantas = aiv.obtenerListaDePlantas();
         for (Planta planta : plantas) {
             model.addRow(new Object[]{planta.getId(), planta.getNombre(), planta.getClasificacion(), planta.getTamano(), planta.getAmbiente(), planta.getPrecio(), planta.getCantidad()});

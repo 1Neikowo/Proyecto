@@ -118,9 +118,11 @@ public class VentanaModificar extends VentanaBase{
                     AIV aiv= new AIV();
                     aiv.modificarCantidadPlanta(especieTextField.getText(),Integer.parseInt(idTextField.getText()),Integer.parseInt(cantidadTextField.getText()));
                     JOptionPane.showMessageDialog(this,"Se ha modificado la cantidad exitosamente","Cambio de cantidad",JOptionPane.INFORMATION_MESSAGE);
+                    especieTextField.setText("");
+                    idTextField.setText("");
+                    cantidadTextField.setText("");
+
                 }
-
-
             }
         }
     }

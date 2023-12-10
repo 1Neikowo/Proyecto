@@ -94,27 +94,28 @@ public class AIV {
         gestorArchivo.guardarCambios(this.listaDePlantas);
     }
 
-    public void obtenerUltimoID(){
-        if(listaDePlantas.size()!=0){
+    public void guardarUltimoID(){
+        if(!listaDePlantas.isEmpty()){
         String  id= buscarIdMayor();
         gestorArchivo.guardarUltimoID(id);
         }else{
             gestorArchivo.guardarUltimoID("0");
         }
     }
-    public String buscarIdMayor(){
-        int contador=0;
-        for(int i=0;i<listaDePlantas.size(); i++){
-            int idActual=listaDePlantas.get(i).getId();
-            if(idActual>=contador){
-                contador= idActual;
-            }else{
-                continue;
+    public String buscarIdMayor() {
+        int contador = listaDePlantas.get(0).getId();
+        for (int i = 0; i < listaDePlantas.size(); i++) {
+            int idActual = listaDePlantas.get(i).getId();
+            if (idActual > contador) {
+                contador = idActual;
             }
         }
         return String.valueOf(contador);
     }
     public String leerUltimoIDArchivo(){
         return gestorArchivo.leerUltimoID();
+    }
+    public boolean arrayEmpty(){
+        return listaDePlantas.isEmpty();
     }
 }

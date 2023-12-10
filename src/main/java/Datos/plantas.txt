@@ -1,7 +1,0 @@
-2,2,Arbusto,Mediano,Interior,2,2
-3,3,Arbusto,Mediano,Exterior,3,3
-4,4,Helecho,Mediano,Exterior,4,4
-5,5,Arbusto,Pequeño,Exterior,5,5
-6,6,Arbusto,Mediano,Interior,6,6
-7,1,Flor,Mediano,Interior,1,1
-9,8,Flor,Pequeño,Interior,8,8
