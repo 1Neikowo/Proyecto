@@ -34,8 +34,8 @@ public class AIV {
         return false;
     }
     //Metodo para verificar si existe una planta por nombre
-    @Override
-    public boolean existePlanta(String especie) {
+
+    public boolean existePlantaNombre(String especie) {
         for (Planta planta : listaDePlantas) {
             if (planta.getNombre().equalsIgnoreCase(especie)) {
                 return true;
