@@ -99,7 +99,7 @@ public class VentanaBuscar extends VentanaBase {
                 if (aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
                     AIV aiv = new AIV();
                     Planta plantaHallada = aiv.buscarPlanta((especieTextField.getText()).toLowerCase(), Integer.parseInt(idTextField.getText()));
-                    JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta hallada", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, plantaHallada.mostrar(), "Informacion de planta encontrada", JOptionPane.INFORMATION_MESSAGE);
                     especieTextField.setText("");
                     idTextField.setText("");
                 } else {

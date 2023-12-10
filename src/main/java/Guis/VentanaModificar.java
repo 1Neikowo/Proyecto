@@ -78,7 +78,7 @@ public class VentanaModificar extends VentanaBase{
             @Override
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
-                if (!Character.isDigit(caracter)) {
+                if (!Character.isDigit(caracter) || (caracter == '0' && cantidadTextField.getText().isEmpty())){
                     e.consume();
                 }
             }
@@ -109,11 +109,23 @@ public class VentanaModificar extends VentanaBase{
             this.dispose();
         }
         if(event.getSource() == btAceptar){
-            if (especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty()) {
+            if (validacionCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             }else{
+                if(!aiv.existeplanta(especieTextField.getText(),Integer.parseInt(idTextField.getText()))){
+                    JOptionPane.showMessageDialog(this,"La planta buscada no existe","Planta no hallada",JOptionPane.WARNING_MESSAGE);
+                }else{
+                    AIV aiv= new AIV();
+                    aiv.modificarCantidadPlanta(especieTextField.getText(),Integer.parseInt(idTextField.getText()),Integer.parseInt(cantidadTextField.getText()));
+                    JOptionPane.showMessageDialog(this,"Se ha modificado la cantidad exitosamente","Cambio de cantidad",JOptionPane.INFORMATION_MESSAGE);
+                }
+
 
             }
         }
+    }
+    public boolean validacionCampos(){
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
+
     }
 }
