@@ -1,6 +1,7 @@
 package Guis;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -72,10 +73,16 @@ public class VentanaLogin extends VentanaBase {
         this.add(btIngresar);
         btIngresar.addActionListener(this);
     }
-
+    public ImageIcon redimensionImagen(){
+        ImageIcon icon = new ImageIcon("src/main/java/Utils/ojoabierto.jpg");
+        Image image = icon.getImage();
+        Image newImage = image.getScaledInstance(50, 30, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newicon = new ImageIcon(newImage);
+        return newicon;
+    }
     public void generarBotonMostrarOcultar() {
-        btMostrarOcultar = super.generarBotonPrincipal("Mostrar/ocultar", 75, 210, 50, 30);
-        ImageIcon icono = new ImageIcon("src/main/java/Utils/ojoabierto.jpg");
+        btMostrarOcultar = super.generarBotonPrincipal("Mostrar/ocultar", 75, 210, 40, 30);
+        ImageIcon icono = redimensionImagen();
         btMostrarOcultar.setIcon(icono);
         this.add(btMostrarOcultar);
         btMostrarOcultar.addActionListener(this);
