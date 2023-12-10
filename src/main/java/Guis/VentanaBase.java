@@ -12,7 +12,6 @@ public class VentanaBase extends JFrame implements ActionListener{
 
     public VentanaBase(String nombre, int largoX, int largoY){
         super(nombre);
-        super.setVisible(true);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setSize(largoX, largoY);
         super.setLocationRelativeTo(null);
@@ -20,6 +19,7 @@ public class VentanaBase extends JFrame implements ActionListener{
         this.setLayout(null);
         this.fuenteTitulo = new Font("Calibri", Font.BOLD | Font.ITALIC, 30);
         this.fuenteTexto = new Font("Calibri", Font.BOLD, 14);
+        super.setVisible(true);
     }
 
     public JButton generarBotonPrincipal(String text, int locationX, int locationY, int largoX, int largoY) {

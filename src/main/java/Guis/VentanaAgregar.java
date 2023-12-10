@@ -25,15 +25,18 @@ public class VentanaAgregar extends VentanaBase {
         super("Agregar Plantas", 500, 520);
         this.aiv = aiv;
         generarElementosVentana();
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
                     System.exit(0);
                 } else {
-                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
@@ -174,9 +177,9 @@ public class VentanaAgregar extends VentanaBase {
         }
     }
     private void agregarNuevaPlanta() {
-        aiv.guardarUltimoID();
         Planta planta = crearPlanta();
         aiv.agregarPlantaNueva(planta);
+        aiv.guardarUltimoID();
         JOptionPane.showMessageDialog(this, "Planta agregada correctamente");
         limpiarCampos();
     }

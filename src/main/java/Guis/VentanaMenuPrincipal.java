@@ -24,19 +24,6 @@ public class VentanaMenuPrincipal extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-    private void agregarListenerCerrarVentana(){
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
-                    System.exit(0);
-                }
-            }
-        });
-    }
-
     private void generarElementosVentana() {
         generarEncabezado();
         generarBotonAgregar();
@@ -47,56 +34,66 @@ public class VentanaMenuPrincipal extends VentanaBase {
         generarBotonVolver();
         generarBotonCambiarPass();
     }
-
-    public void generarEncabezado() {
+    private void agregarListenerCerrarVentana() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
+                    System.exit(0);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+    }
+    private void generarEncabezado() {
         String encabezado = "¿Qué deseas realizar?";
         super.generarJLabelEncabezado(encabezado, 100, 20, 300, 50);
     }
 
-    public void generarBotonAgregar() {
+    private void generarBotonAgregar() {
         btAgregar = generarBotonPrincipal("Agregar Plantas", 175, 90, 150, 35);
         this.add(btAgregar);
         btAgregar.addActionListener(this);
     }
 
-    public void generarBotonEliminar() {
+    private void generarBotonEliminar() {
         btEliminar = generarBotonPrincipal("Eliminar Plantas", 175, 155, 150, 35);
         this.add(btEliminar);
         btEliminar.addActionListener(this);
     }
 
-    public void generarBotonModificar() {
+    private void generarBotonModificar() {
         btModificar = generarBotonPrincipal("Modificar Cantidad", 175, 220, 150, 35);
         this.add(btModificar);
         btModificar.addActionListener(this);
     }
 
-    public void generarBotonBuscar() {
+    private void generarBotonBuscar() {
         btBuscar = generarBotonPrincipal("Buscar Plantas", 175, 285, 150, 35);
 
         this.add(btBuscar);
         btBuscar.addActionListener(this);
     }
 
-    public void generarBotonMostrar() {
+    private void generarBotonMostrar() {
         btMostrar = generarBotonPrincipal("Mostrar Inventario", 175, 350, 150, 35);
         this.add(btMostrar);
         btMostrar.addActionListener(this);
     }
-    public void generarBotonCambiarPass(){
+    private void generarBotonCambiarPass(){
         btCambiarPass = generarBotonPrincipal("Cambiar Contraseña", 175, 415, 150, 35);
         this.add(btCambiarPass);
         btCambiarPass.addActionListener(this);
     }
 
-    public void generarBotonVolver() {
+    private void generarBotonVolver() {
         btVolver = generarBotonPrincipal("Volver", 200, 500, 100, 30);
         this.add(btVolver);
         btVolver.addActionListener(this);
     }
-
-
-
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == btAgregar) {

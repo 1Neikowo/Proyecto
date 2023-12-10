@@ -1,8 +1,0 @@
-1,ghgfh,Arbusto,Pequeño,Exterior,23,30
-2,434regfdg,Flor,Mediano,Exterior,43543,5443534
-4,asdasd,Arbol,Grande,Exterior,3,4
-5,sdfsdfsdf,Flor,Mediano,Interior,34,12
-6,fdgdfg,Arbusto,Mediano,Exterior,4543,435
-7,fghgfh,Arbol,Mediano,Interior,3234,324234
-8,sdfsdf,Arbusto,Pequeño,Exterior,2345,435
-9,zzz,Flor,Grande,Interior,32423,234345

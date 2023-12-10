@@ -25,25 +25,27 @@ public class VentanaMostrar extends VentanaBase {
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-    private void agregarListenerCerrarVentana(){
+    private void agregarListenerCerrarVentana() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
                     System.exit(0);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
 
-    public void generarElementosVentana() {
+    private void generarElementosVentana() {
         generarBotonVolver();
         generarTabla();
     }
 
-    public void generarTabla() {
+    private void generarTabla() {
         DefaultTableModel model = crearModeloTabla();
         llenarModeloConPlantas(model);
         crearYConfigurarTabla(model);
@@ -79,7 +81,7 @@ public class VentanaMostrar extends VentanaBase {
 
 
 
-    public void generarBotonVolver() {
+    private void generarBotonVolver() {
         btVolver = generarBotonPrincipal("Volver", 175, 400, 150, 35);
         this.add(btVolver);
         btVolver.addActionListener(this);

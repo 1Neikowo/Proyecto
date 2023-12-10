@@ -18,14 +18,16 @@ public class VentanaModificar extends VentanaBase{
         generarElementosVentana();
         agregarListenerCerrarVentana();
     }
-    private void agregarListenerCerrarVentana(){
+    private void agregarListenerCerrarVentana() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    JOptionPane.showMessageDialog(null, "¡Hasta Luego 😉, vuelve pronto!");
                     System.exit(0);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
@@ -106,10 +108,7 @@ public class VentanaModificar extends VentanaBase{
             procesarAceptarResultado();
         }
     }
-    private boolean validacionCampos(){
-        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
 
-    }
     private void procesarAceptarResultado() {
         if (!aiv.existeplanta(especieTextField.getText(), Integer.parseInt(idTextField.getText()))) {
             JOptionPane.showMessageDialog(this,"La planta buscada no existe","Planta no hallada",JOptionPane.WARNING_MESSAGE);
@@ -131,6 +130,10 @@ public class VentanaModificar extends VentanaBase{
         especieTextField.setText("");
         idTextField.setText("");
         cantidadTextField.setText("");
+    }
+    private boolean validacionCampos(){
+        return especieTextField.getText().isEmpty() || idTextField.getText().isEmpty() || cantidadTextField.getText().isEmpty();
+
     }
 
 }
