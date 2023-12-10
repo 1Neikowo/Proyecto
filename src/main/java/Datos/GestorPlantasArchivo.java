@@ -19,28 +19,36 @@ public class GestorPlantasArchivo {
         this.rutaID = "src/main/java/Datos/id.txt";
     }
 
-    public void guardarUltimoID(int id) {
+    public void guardarUltimoID(String id) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaID, false))) {
             bw.write(id);
-            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void agregarPlantaArchivo(Planta planta) {
+    public  String leerUltimoID() {
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaID))) {
+            return br.readLine(); // Retorna la línea leída
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // En caso de error, retorna null
+        }
+    }
+
+   /* public void agregarPlantaArchivo(Planta planta) {
         boolean existeArchivo = existeArchivoPlantas();
         if (existeArchivo) {
             agregarPlantaArchivoExiste(planta);
         } else {
 
         }
-    }
+    }*/
 
 
     //Metodo para agregar una planta a un archivo existente
     //Funcionamiento FileWriter: Dado que el archivo existe, se agregara la informacion en la última fila, sin sobreescribir la preexistente dado el boolean entregado.
     //FileWriter segundo parametro boolean: true para agregar la informacion al final del archivo, false para sobreescribir el archivo.
-    public void agregarPlantaArchivoExiste(Planta planta){
+   /* public void agregarPlantaArchivoExiste(Planta planta){
         try {
             //Agregar planta a un archivo existente
             BufferedWriter writer = new BufferedWriter(new FileWriter(rutaPlantas, true));
@@ -50,7 +58,7 @@ public class GestorPlantasArchivo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public boolean existeArchivoPlantas() {
         //Se verifica si existe el archivo con el nombre "nombreArchivo"
@@ -66,6 +74,7 @@ public class GestorPlantasArchivo {
             e.printStackTrace();
         }
     }
+
     public boolean archivoPlantasVacio() {
         File archivo = new File(rutaPlantas);
         if (archivo.length() > 0) {
@@ -97,12 +106,12 @@ public class GestorPlantasArchivo {
 //Si el archivo EXISTE, se procede a la lectura con normalidad
 //Si el archivo NO EXISTE, se crea un archivo nuevo y se vuelve a intentar la lectura
     public ArrayList<Planta> obtenerPlantasArchivo() {
-        //Se obitiene el arreglo de plantas que se almacenó en el arhivo de texto
         ArrayList<Planta> plantas = new ArrayList<>();
         if (existeArchivoPlantas()) {
+            //Si el archivo estaba vacío, se retorna un arreglo vacío
             if (archivoPlantasVacio()) {
                 return plantas;
-            } else{
+            }else {
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(rutaPlantas));
                     String linea = reader.readLine();
@@ -117,24 +126,31 @@ public class GestorPlantasArchivo {
                     e.printStackTrace();
                 }
             }
-            } else{
-                createArchivoPlantas();
-                return obtenerPlantasArchivo();
-            }
-            return plantas;
+        }else {
+            createArchivoPlantas();
+            return obtenerPlantasArchivo();
         }
+        return plantas;
+    }
 
 
     //Metodo encargado de guardar en el archivo los cambios realizados en listaDePlantas
     public void guardarCambios(ArrayList<Planta> plantas) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
-            for (Planta planta : plantas) {
-                bw.write(planta.toString());
-                bw.newLine();
+        if (existeArchivoPlantas()) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaPlantas, false))) {
+                for (Planta planta : plantas) {
+                    bw.write(planta.toString());
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        } else {
+            createArchivoPlantas();
+            guardarCambios(plantas);
         }
+
     }
 
 

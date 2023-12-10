@@ -11,7 +11,10 @@ public class Admin {
     public String getPassword(){
         return password;
     }
-    public boolean autenticar(String nombre, String password){
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public boolean autenticar(String password){
         return this.password.equals(password);
     }
 }

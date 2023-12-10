@@ -1,8 +1,11 @@
 package Guis;
+import Datos.GestorAdminArchivo;
 import Modelo.AIV;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaMenuPrincipal extends VentanaBase {
     private JButton btAgregar;
@@ -19,7 +22,19 @@ public class VentanaMenuPrincipal extends VentanaBase {
         super("Menú", 500, 650);
         this.aiv = aiv;
         generarElementosVentana();
-
+        agregarListenerCerrarVentana();
+    }
+    private void agregarListenerCerrarVentana(){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "¡Nos vemos, vuelve pronto!");
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     private void generarElementosVentana() {
@@ -83,31 +98,57 @@ public class VentanaMenuPrincipal extends VentanaBase {
 
 
     public void actionPerformed(ActionEvent event) {
+
         if (event.getSource() == btAgregar) {
             new VentanaAgregar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btEliminar) {
             new VentanaEliminar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btModificar) {
             new VentanaModificar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btBuscar) {
             new VentanaBuscar(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btMostrar) {
+            new VentanaMostrar(aiv);
+            this.dispose();
         }
+
         if (event.getSource() == btVolver) {
             new VentanaLogin(aiv);
             this.dispose();
         }
+
         if (event.getSource() == btCambiarPass){
-            JOptionPane.showInputDialog(this, "Ingrese la nueva contraseña", "Cambio de contraseña", JOptionPane.PLAIN_MESSAGE);
+            procesarCambiarPass();
         }
+    }
+    private void procesarCambiarPass(){
+        String nuevapassword = JOptionPane.showInputDialog(this, "Ingrese la nueva contraseña", "Cambio de contraseña", JOptionPane.PLAIN_MESSAGE);
+        if(validarPass(nuevapassword)){
+            cambiarPass(nuevapassword);
+        }else{
+            JOptionPane.showMessageDialog(this, "No has ingresado nada ", "Contraseña no cambiada", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    private boolean validarPass(String nuevapassword){
+        return nuevapassword != null && !nuevapassword.isEmpty();
+    }
+    private void cambiarPass(String nuevapassword){
+        GestorAdminArchivo gestor = new GestorAdminArchivo();
+        gestor.getAdmin().setPassword(nuevapassword);
+        gestor.guardarCambios();
+        JOptionPane.showMessageDialog(this, "La contraseña se ha cambiado con éxito", "Contraseña cambiada", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
