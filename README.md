@@ -1,2 +1,2 @@
 # Diagrama de clases UML
-![Class Diagram1](https://github.com/1Neikowo/Proyecto/assets/130028710/f7df4195-fb4d-4346-9d31-fed9e33fa1ee)
+![AIV](https://github.com/1Neikowo/Proyecto/assets/130028710/bef84279-1d88-40a3-bb09-2eec6fba62f8)
