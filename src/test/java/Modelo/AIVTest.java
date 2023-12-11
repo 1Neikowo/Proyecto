@@ -17,8 +17,8 @@ class AIVTest {
 
     @Test
     void TestAgregarPlanta() {
-        Planta planta1 = new Planta("Rose", "Flower", "Medium", "Indoor", 10, 5);
-        Planta planta2 = new Planta("Tulip", "Flower", "Small", "Outdoor", 8, 7);
+        Planta planta1 = new Planta("Rosa", "Flor", "Mediano", "Interior", 10, 5);
+        Planta planta2 = new Planta("Tulipan", "Flor", "Pequeño", "Exterior", 8, 7);
 
         aiv.agregarPlantaNueva(planta1);
         aiv.agregarPlantaNueva(planta2);
@@ -32,16 +32,16 @@ class AIVTest {
 
     @Test
     void TestExistePlanta() {
-        Planta planta1 = new Planta("Rose", "Flower", "Medium", "Indoor", 10, 5);
+        Planta planta1 = new Planta("Rosa", "Flor", "Mediano", "Interior", 10, 5);
         aiv.agregarPlantaNueva(planta1);
         assertTrue(aiv.existeplanta(planta1.getNombre(), planta1.getId()));
     }
 
     @Test
-    void shouldFindHighestId() {
-        Planta planta1 = new Planta("Rose", "Flower", "Medium", "Indoor", 10, 5);
-        Planta planta2 = new Planta("Tulip", "Flower", "Small", "Outdoor", 8, 7);
-        Planta planta3 = new Planta("Daisy", "Flower", "Small", "Outdoor", 9, 8);
+    void TestBuscarIdMayor() {
+        Planta planta1 = new Planta("Rosa", "Flor", "Mediano", "Exterior", 10, 5);
+        Planta planta2 = new Planta("Tulipan", "Flor", "Pequeño", "Exterior", 8, 7);
+        Planta planta3 = new Planta("Margarita", "Flor", "Pequeño", "Exterior", 9, 8);
 
         aiv.agregarPlantaNueva(planta1);
         aiv.agregarPlantaNueva(planta2);
